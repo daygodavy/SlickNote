@@ -1,0 +1,610 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D732A3BC17F00881219 /* AppDelegate.swift */; };
+		5B5E5D762A3BC17F00881219 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D752A3BC17F00881219 /* SceneDelegate.swift */; };
+		5B5E5D782A3BC17F00881219 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D772A3BC17F00881219 /* ViewController.swift */; };
+		5B5E5D7E2A3BC17F00881219 /* SlickNote.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D7C2A3BC17F00881219 /* SlickNote.xcdatamodeld */; };
+		5B5E5D802A3BC18000881219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B5E5D7F2A3BC18000881219 /* Assets.xcassets */; };
+		5B5E5D832A3BC18000881219 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5E5D812A3BC18000881219 /* LaunchScreen.storyboard */; };
+		5B5E5D8E2A3BC18100881219 /* SlickNoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D8D2A3BC18100881219 /* SlickNoteTests.swift */; };
+		5B5E5D982A3BC18100881219 /* SlickNoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D972A3BC18100881219 /* SlickNoteUITests.swift */; };
+		5B5E5D9A2A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5B5E5D8A2A3BC18100881219 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B5E5D682A3BC17E00881219 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B5E5D6F2A3BC17F00881219;
+			remoteInfo = SlickNote;
+		};
+		5B5E5D942A3BC18100881219 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5B5E5D682A3BC17E00881219 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5B5E5D6F2A3BC17F00881219;
+			remoteInfo = SlickNote;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5B5E5D702A3BC17F00881219 /* SlickNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlickNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B5E5D732A3BC17F00881219 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5B5E5D752A3BC17F00881219 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		5B5E5D772A3BC17F00881219 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5B5E5D7D2A3BC17F00881219 /* SlickNote.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SlickNote.xcdatamodel; sourceTree = "<group>"; };
+		5B5E5D7F2A3BC18000881219 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5B5E5D822A3BC18000881219 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		5B5E5D842A3BC18000881219 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5B5E5D892A3BC18100881219 /* SlickNoteTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlickNoteTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B5E5D8D2A3BC18100881219 /* SlickNoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteTests.swift; sourceTree = "<group>"; };
+		5B5E5D932A3BC18100881219 /* SlickNoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlickNoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B5E5D972A3BC18100881219 /* SlickNoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteUITests.swift; sourceTree = "<group>"; };
+		5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5B5E5D6D2A3BC17F00881219 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B5E5D862A3BC18100881219 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B5E5D902A3BC18100881219 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5B5E5D672A3BC17E00881219 = {
+			isa = PBXGroup;
+			children = (
+				5B5E5D722A3BC17F00881219 /* SlickNote */,
+				5B5E5D8C2A3BC18100881219 /* SlickNoteTests */,
+				5B5E5D962A3BC18100881219 /* SlickNoteUITests */,
+				5B5E5D712A3BC17F00881219 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5B5E5D712A3BC17F00881219 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E5D702A3BC17F00881219 /* SlickNote.app */,
+				5B5E5D892A3BC18100881219 /* SlickNoteTests.xctest */,
+				5B5E5D932A3BC18100881219 /* SlickNoteUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5B5E5D722A3BC17F00881219 /* SlickNote */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E5D732A3BC17F00881219 /* AppDelegate.swift */,
+				5B5E5D752A3BC17F00881219 /* SceneDelegate.swift */,
+				5B5E5D772A3BC17F00881219 /* ViewController.swift */,
+				5B5E5D7F2A3BC18000881219 /* Assets.xcassets */,
+				5B5E5D812A3BC18000881219 /* LaunchScreen.storyboard */,
+				5B5E5D842A3BC18000881219 /* Info.plist */,
+				5B5E5D7C2A3BC17F00881219 /* SlickNote.xcdatamodeld */,
+			);
+			path = SlickNote;
+			sourceTree = "<group>";
+		};
+		5B5E5D8C2A3BC18100881219 /* SlickNoteTests */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E5D8D2A3BC18100881219 /* SlickNoteTests.swift */,
+			);
+			path = SlickNoteTests;
+			sourceTree = "<group>";
+		};
+		5B5E5D962A3BC18100881219 /* SlickNoteUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E5D972A3BC18100881219 /* SlickNoteUITests.swift */,
+				5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */,
+			);
+			path = SlickNoteUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5B5E5D6F2A3BC17F00881219 /* SlickNote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B5E5D9D2A3BC18100881219 /* Build configuration list for PBXNativeTarget "SlickNote" */;
+			buildPhases = (
+				5B5E5D6C2A3BC17F00881219 /* Sources */,
+				5B5E5D6D2A3BC17F00881219 /* Frameworks */,
+				5B5E5D6E2A3BC17F00881219 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SlickNote;
+			productName = SlickNote;
+			productReference = 5B5E5D702A3BC17F00881219 /* SlickNote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5B5E5D882A3BC18100881219 /* SlickNoteTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B5E5DA02A3BC18100881219 /* Build configuration list for PBXNativeTarget "SlickNoteTests" */;
+			buildPhases = (
+				5B5E5D852A3BC18100881219 /* Sources */,
+				5B5E5D862A3BC18100881219 /* Frameworks */,
+				5B5E5D872A3BC18100881219 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5B5E5D8B2A3BC18100881219 /* PBXTargetDependency */,
+			);
+			name = SlickNoteTests;
+			productName = SlickNoteTests;
+			productReference = 5B5E5D892A3BC18100881219 /* SlickNoteTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5B5E5D922A3BC18100881219 /* SlickNoteUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B5E5DA32A3BC18100881219 /* Build configuration list for PBXNativeTarget "SlickNoteUITests" */;
+			buildPhases = (
+				5B5E5D8F2A3BC18100881219 /* Sources */,
+				5B5E5D902A3BC18100881219 /* Frameworks */,
+				5B5E5D912A3BC18100881219 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5B5E5D952A3BC18100881219 /* PBXTargetDependency */,
+			);
+			name = SlickNoteUITests;
+			productName = SlickNoteUITests;
+			productReference = 5B5E5D932A3BC18100881219 /* SlickNoteUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5B5E5D682A3BC17E00881219 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					5B5E5D6F2A3BC17F00881219 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					5B5E5D882A3BC18100881219 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 5B5E5D6F2A3BC17F00881219;
+					};
+					5B5E5D922A3BC18100881219 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 5B5E5D6F2A3BC17F00881219;
+					};
+				};
+			};
+			buildConfigurationList = 5B5E5D6B2A3BC17E00881219 /* Build configuration list for PBXProject "SlickNote" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5B5E5D672A3BC17E00881219;
+			productRefGroup = 5B5E5D712A3BC17F00881219 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5B5E5D6F2A3BC17F00881219 /* SlickNote */,
+				5B5E5D882A3BC18100881219 /* SlickNoteTests */,
+				5B5E5D922A3BC18100881219 /* SlickNoteUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5B5E5D6E2A3BC17F00881219 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5E5D832A3BC18000881219 /* LaunchScreen.storyboard in Resources */,
+				5B5E5D802A3BC18000881219 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B5E5D872A3BC18100881219 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B5E5D912A3BC18100881219 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5B5E5D6C2A3BC17F00881219 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5E5D782A3BC17F00881219 /* ViewController.swift in Sources */,
+				5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */,
+				5B5E5D7E2A3BC17F00881219 /* SlickNote.xcdatamodeld in Sources */,
+				5B5E5D762A3BC17F00881219 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B5E5D852A3BC18100881219 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5E5D8E2A3BC18100881219 /* SlickNoteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B5E5D8F2A3BC18100881219 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B5E5D982A3BC18100881219 /* SlickNoteUITests.swift in Sources */,
+				5B5E5D9A2A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5B5E5D8B2A3BC18100881219 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B5E5D6F2A3BC17F00881219 /* SlickNote */;
+			targetProxy = 5B5E5D8A2A3BC18100881219 /* PBXContainerItemProxy */;
+		};
+		5B5E5D952A3BC18100881219 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5B5E5D6F2A3BC17F00881219 /* SlickNote */;
+			targetProxy = 5B5E5D942A3BC18100881219 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5B5E5D812A3BC18000881219 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5B5E5D822A3BC18000881219 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		5B5E5D9B2A3BC18100881219 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5B5E5D9C2A3BC18100881219 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5B5E5D9E2A3BC18100881219 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2J43M5H25R;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SlickNote/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dchuon.SlickNote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5B5E5D9F2A3BC18100881219 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2J43M5H25R;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SlickNote/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dchuon.SlickNote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5B5E5DA12A3BC18100881219 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2J43M5H25R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dchuon.SlickNoteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SlickNote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SlickNote";
+			};
+			name = Debug;
+		};
+		5B5E5DA22A3BC18100881219 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2J43M5H25R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dchuon.SlickNoteTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SlickNote.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SlickNote";
+			};
+			name = Release;
+		};
+		5B5E5DA42A3BC18100881219 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2J43M5H25R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dchuon.SlickNoteUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SlickNote;
+			};
+			name = Debug;
+		};
+		5B5E5DA52A3BC18100881219 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2J43M5H25R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Dchuon.SlickNoteUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SlickNote;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5B5E5D6B2A3BC17E00881219 /* Build configuration list for PBXProject "SlickNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B5E5D9B2A3BC18100881219 /* Debug */,
+				5B5E5D9C2A3BC18100881219 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B5E5D9D2A3BC18100881219 /* Build configuration list for PBXNativeTarget "SlickNote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B5E5D9E2A3BC18100881219 /* Debug */,
+				5B5E5D9F2A3BC18100881219 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B5E5DA02A3BC18100881219 /* Build configuration list for PBXNativeTarget "SlickNoteTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B5E5DA12A3BC18100881219 /* Debug */,
+				5B5E5DA22A3BC18100881219 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B5E5DA32A3BC18100881219 /* Build configuration list for PBXNativeTarget "SlickNoteUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B5E5DA42A3BC18100881219 /* Debug */,
+				5B5E5DA52A3BC18100881219 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5B5E5D7C2A3BC17F00881219 /* SlickNote.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5B5E5D7D2A3BC17F00881219 /* SlickNote.xcdatamodel */,
+			);
+			currentVersion = 5B5E5D7D2A3BC17F00881219 /* SlickNote.xcdatamodel */;
+			path = SlickNote.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5B5E5D682A3BC17E00881219 /* Project object */;
+}
