@@ -9,13 +9,14 @@
 /* Begin PBXBuildFile section */
 		5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D732A3BC17F00881219 /* AppDelegate.swift */; };
 		5B5E5D762A3BC17F00881219 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D752A3BC17F00881219 /* SceneDelegate.swift */; };
-		5B5E5D782A3BC17F00881219 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D772A3BC17F00881219 /* ViewController.swift */; };
 		5B5E5D7E2A3BC17F00881219 /* SlickNote.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D7C2A3BC17F00881219 /* SlickNote.xcdatamodeld */; };
 		5B5E5D802A3BC18000881219 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B5E5D7F2A3BC18000881219 /* Assets.xcassets */; };
 		5B5E5D832A3BC18000881219 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5E5D812A3BC18000881219 /* LaunchScreen.storyboard */; };
 		5B5E5D8E2A3BC18100881219 /* SlickNoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D8D2A3BC18100881219 /* SlickNoteTests.swift */; };
 		5B5E5D982A3BC18100881219 /* SlickNoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D972A3BC18100881219 /* SlickNoteUITests.swift */; };
 		5B5E5D9A2A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */; };
+		5B5E5DAA2A3CF18300881219 /* DailyNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */; };
+		5B5E5DAB2A3D0F4400881219 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D772A3BC17F00881219 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		5B5E5D932A3BC18100881219 /* SlickNoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlickNoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5E5D972A3BC18100881219 /* SlickNoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteUITests.swift; sourceTree = "<group>"; };
 		5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +101,11 @@
 		5B5E5D722A3BC17F00881219 /* SlickNote */ = {
 			isa = PBXGroup;
 			children = (
+				5B5E5DA62A3BC6A700881219 /* Model */,
+				5B5E5DA72A3BC6C200881219 /* View */,
+				5B5E5DA82A3BC6C800881219 /* Controller */,
 				5B5E5D732A3BC17F00881219 /* AppDelegate.swift */,
 				5B5E5D752A3BC17F00881219 /* SceneDelegate.swift */,
-				5B5E5D772A3BC17F00881219 /* ViewController.swift */,
 				5B5E5D7F2A3BC18000881219 /* Assets.xcassets */,
 				5B5E5D812A3BC18000881219 /* LaunchScreen.storyboard */,
 				5B5E5D842A3BC18000881219 /* Info.plist */,
@@ -125,6 +129,29 @@
 				5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */,
 			);
 			path = SlickNoteUITests;
+			sourceTree = "<group>";
+		};
+		5B5E5DA62A3BC6A700881219 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5B5E5DA72A3BC6C200881219 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5B5E5DA82A3BC6C800881219 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E5D772A3BC17F00881219 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,10 +284,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B5E5D782A3BC17F00881219 /* ViewController.swift in Sources */,
+				5B5E5DAB2A3D0F4400881219 /* ViewController.swift in Sources */,
 				5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */,
 				5B5E5D7E2A3BC17F00881219 /* SlickNote.xcdatamodeld in Sources */,
 				5B5E5D762A3BC17F00881219 /* SceneDelegate.swift in Sources */,
+				5B5E5DAA2A3CF18300881219 /* DailyNoteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
