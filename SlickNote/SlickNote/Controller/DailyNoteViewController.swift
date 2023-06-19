@@ -7,7 +7,8 @@
 
 import UIKit
 
-class DailyNoteViewController: UIViewController {
+class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate {
+    
     // MARK: - UI Components
     private let dailyNoteTableView: UITableView = {
         let tableView = UITableView()
@@ -26,7 +27,7 @@ class DailyNoteViewController: UIViewController {
 
     
     // MARK: - VARIABLES
-    let test = ["San Diego San Diego San Diego San Diego San Diego San Diego San Diego San Diego San Diego", "Los Angeles", "Orange County", "San Francisco", "Sacramento", "Sacramento", "Sacramento", "Sacramento", "Sacramento", "Sacramento", "Sacramento"]
+    private var dailyNotes = [String]()
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -36,6 +37,8 @@ class DailyNoteViewController: UIViewController {
         
         dailyNoteTableView.dataSource = self
         dailyNoteTableView.delegate = self
+        
+        dailyNoteTextBar.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -84,12 +87,17 @@ class DailyNoteViewController: UIViewController {
     @objc private func hideKeyboard() {
         view.endEditing(true)
     }
+    
+    func addNoteButtonTapped(withNote note: String) {
+        dailyNotes.insert(note, at: 0)
+        dailyNoteTableView.reloadData()
+    }
 
 }
 
 extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return test.count
+        return dailyNotes.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -105,7 +113,7 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = .clear
 //        cell.selectionStyle = .none
 
-        cell.configure(with: test[indexPath.section])
+        cell.configure(with: dailyNotes[indexPath.section])
 
         return cell
     }
