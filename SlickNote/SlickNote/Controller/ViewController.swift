@@ -11,15 +11,14 @@ class ViewController: UIViewController {
     // MARK: - UI Components
     private let dailyNoteTableView: UITableView = {
         let tableView = UITableView()
-//        tableView.backgroundColor = .clear
+        
         tableView.backgroundColor = .systemGray
         tableView.allowsSelection = true
         
         tableView.separatorStyle = .none
-//        tableView.tableFooterView = UIView()
         
         tableView.register(DailyNoteTableViewCell.self, forCellReuseIdentifier: "DailyNoteCell")
-//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+
         return tableView
     }()
     
@@ -64,58 +63,6 @@ class ViewController: UIViewController {
 
 }
 
-//extension ViewController: UITableViewDelegate, UITableViewDataSource {
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return test.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        // Return the number of rows in the section
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-//
-//        cell.selectionStyle = .none
-//        cell.backgroundColor = .white
-//
-//        cell.textLabel?.text = test[indexPath.section]
-////        cell.textLabel?.layer.borderWidth = 2.0
-////        cell.textLabel?.layer.borderColor = UIColor.green.cgColor
-////        cell.textLabel?.layer.cornerRadius = 10
-//        cell.textLabel?.numberOfLines = 0
-//
-//        cell.layer.borderWidth = 4.0
-//        cell.layer.borderColor = UIColor.white.cgColor
-//        cell.layer.cornerRadius = 10
-//
-//
-//        return cell
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
-//
-//    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let footer = UIView()
-////        let footer = UILabel()
-////        footer.text = "\(section)"
-//        return footer
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 10.0
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        // Handle row selection
-//    }
-//}
-
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return test.count
@@ -141,8 +88,6 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let footer = UIView()
-//        let footer = UILabel()
-//        footer.text = "\(section)"
         return footer
     }
 

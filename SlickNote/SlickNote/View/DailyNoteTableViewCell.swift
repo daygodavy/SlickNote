@@ -74,8 +74,6 @@ class DailyNoteTableViewCell: UITableViewCell {
             dailyCell.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             dailyCell.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
             dailyCell.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10)
-//            dailyCell.leadingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leadingAnchor),
-//            dailyCell.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
@@ -102,24 +100,14 @@ class DailyNoteTableViewCell: UITableViewCell {
         }
     }
     
-//    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-//        super.setHighlighted(highlighted, animated: animated)
-//        if highlighted == true {
-//            self.myCell.backgroundColor = .purple
-//        } else {
-//            self.myCell.backgroundColor = .red
-//        }
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//        if selected == true {
-//            self.myCell.backgroundColor = .purple
-//        }
-//        else {
-//            self.myCell.backgroundColor = .red
-//        }
-//    }
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
     
     
     
