@@ -16,7 +16,8 @@
 		5B5E5D982A3BC18100881219 /* SlickNoteUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D972A3BC18100881219 /* SlickNoteUITests.swift */; };
 		5B5E5D9A2A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */; };
 		5B5E5DAA2A3CF18300881219 /* DailyNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */; };
-		5B5E5DAB2A3D0F4400881219 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D772A3BC17F00881219 /* ViewController.swift */; };
+		5B5E5DAB2A3D0F4400881219 /* DailyNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D772A3BC17F00881219 /* DailyNoteViewController.swift */; };
+		5B5E5DAD2A40FDB900881219 /* DailyNoteTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DAC2A40FDB900881219 /* DailyNoteTextFieldView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +41,7 @@
 		5B5E5D702A3BC17F00881219 /* SlickNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlickNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5E5D732A3BC17F00881219 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B5E5D752A3BC17F00881219 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5B5E5D772A3BC17F00881219 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5B5E5D772A3BC17F00881219 /* DailyNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteViewController.swift; sourceTree = "<group>"; };
 		5B5E5D7D2A3BC17F00881219 /* SlickNote.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SlickNote.xcdatamodel; sourceTree = "<group>"; };
 		5B5E5D7F2A3BC18000881219 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B5E5D822A3BC18000881219 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +52,7 @@
 		5B5E5D972A3BC18100881219 /* SlickNoteUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteUITests.swift; sourceTree = "<group>"; };
 		5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteTableViewCell.swift; sourceTree = "<group>"; };
+		5B5E5DAC2A40FDB900881219 /* DailyNoteTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteTextFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */,
+				5B5E5DAC2A40FDB900881219 /* DailyNoteTextFieldView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -149,7 +152,7 @@
 		5B5E5DA82A3BC6C800881219 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				5B5E5D772A3BC17F00881219 /* ViewController.swift */,
+				5B5E5D772A3BC17F00881219 /* DailyNoteViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -284,10 +287,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B5E5DAB2A3D0F4400881219 /* ViewController.swift in Sources */,
+				5B5E5DAB2A3D0F4400881219 /* DailyNoteViewController.swift in Sources */,
 				5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */,
 				5B5E5D7E2A3BC17F00881219 /* SlickNote.xcdatamodeld in Sources */,
 				5B5E5D762A3BC17F00881219 /* SceneDelegate.swift in Sources */,
+				5B5E5DAD2A40FDB900881219 /* DailyNoteTextFieldView.swift in Sources */,
 				5B5E5DAA2A3CF18300881219 /* DailyNoteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

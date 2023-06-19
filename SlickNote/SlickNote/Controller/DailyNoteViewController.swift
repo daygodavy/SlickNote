@@ -7,12 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DailyNoteViewController: UIViewController {
     // MARK: - UI Components
     private let dailyNoteTableView: UITableView = {
         let tableView = UITableView()
         
-        tableView.backgroundColor = .systemGray
+        tableView.backgroundColor = .clear
         tableView.allowsSelection = true
         
         tableView.separatorStyle = .none
@@ -21,6 +21,9 @@ class ViewController: UIViewController {
 
         return tableView
     }()
+  
+    private var dailyNoteTextBar: DailyNoteTextFieldView!
+
     
     // MARK: - VARIABLES
     let test = ["San Diego San Diego San Diego San Diego San Diego San Diego San Diego San Diego San Diego", "Los Angeles", "Orange County", "San Francisco", "Sacramento", "Sacramento", "Sacramento", "Sacramento", "Sacramento", "Sacramento", "Sacramento"]
@@ -28,8 +31,8 @@ class ViewController: UIViewController {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.setupUI()
-        self.setupTableView()
         
         dailyNoteTableView.dataSource = self
         dailyNoteTableView.delegate = self
@@ -46,6 +49,9 @@ class ViewController: UIViewController {
         title = "Slick Note"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.backgroundColor = .clear
+        
+        self.setupTableView()
+        self.setupTextBar()
     }
     
     private func setupTableView() {
@@ -60,10 +66,28 @@ class ViewController: UIViewController {
         ])
 
     }
+    
+    private func setupTextBar() {
+        dailyNoteTextBar = DailyNoteTextFieldView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 50))
+        
+        view.addSubview(dailyNoteTextBar)
+        
+        dailyNoteTextBar.translatesAutoresizingMaskIntoConstraints = false
+        dailyNoteTextBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
+        dailyNoteTextBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
+        dailyNoteTextBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        let handleKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(handleKeyboard)
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
+    }
 
 }
 
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return test.count
     }
