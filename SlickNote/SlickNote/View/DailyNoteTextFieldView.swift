@@ -129,6 +129,8 @@ class DailyNoteTextFieldView: UIView {
     }
     
     @objc private func addNoteButtonTapped() {
+        // prevent "fake" placeholder from being added as a note
+        if textBar.textColor == UIColor.lightGray { return }
         guard let note = textBar.text else { return } // create alert to say empty note?
         // omit notes with no characters....
         if note.trimmingCharacters(in: .whitespaces).isEmpty { return }
