@@ -21,12 +21,16 @@ class DailyNoteTextFieldView: UIView {
     
     private let textBar: UITextView = {
         let textField = UITextView()
-//        textField.placeholder = "Enter your note"
+        
         textField.isScrollEnabled = false
-        textField.backgroundColor = .red
+        textField.backgroundColor = .white
         
         let font = UIFont(name: "Helvetica Neue", size: 18)
         textField.font = font
+        
+        // mimicking placeholder
+        textField.textColor = UIColor.lightGray
+        textField.text = "Enter your note"
         
         textField.layer.cornerRadius = 14
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -158,5 +162,19 @@ extension DailyNoteTextFieldView: UITextViewDelegate {
         
         // enable scrolling when maxHeight exceeded
         textView.isScrollEnabled = contentSize.height > maxHeight
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.textColor = UIColor.lightGray
+            textView.text = "Enter your note"
+        }
     }
 }
