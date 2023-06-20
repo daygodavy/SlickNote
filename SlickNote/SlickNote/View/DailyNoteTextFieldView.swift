@@ -62,12 +62,15 @@ class DailyNoteTextFieldView: UIView {
         NSLayoutConstraint.activate([
             textBar.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             textBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            textBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5)
+            textBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            textBar.trailingAnchor.constraint(equalTo: addNoteButton.leadingAnchor, constant: -2)
         ])
         
         NSLayoutConstraint.activate([
-            addNoteButton.leadingAnchor.constraint(equalTo: textBar.trailingAnchor, constant: 8),
+//            addNoteButton.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+//            addNoteButton.bottomAnchor.constraint(equalTo: topAnchor, constant: -5),
             addNoteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            addNoteButton.widthAnchor.constraint(equalToConstant: 30),
             addNoteButton.centerYAnchor.constraint(equalTo: textBar.centerYAnchor)
         ])
         
