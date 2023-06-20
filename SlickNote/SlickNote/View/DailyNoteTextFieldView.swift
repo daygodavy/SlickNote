@@ -15,18 +15,25 @@ class DailyNoteTextFieldView: UIView {
     
     private var keyboardHeight: CGFloat = 0
     
+    private var textViewHeightConstraint: NSLayoutConstraint?
+    
     weak var delegate: DailyNoteTextFieldViewDelegate?
     
-    private let textBar: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter your note"
-//        textField.backgroundColor = .white
+    private let textBar: UITextView = {
+        let textField = UITextView()
+//        textField.placeholder = "Enter your note"
+        textField.isScrollEnabled = false
         textField.backgroundColor = .red
+        
+        let font = UIFont(name: "Helvetica Neue", size: 18)
+        textField.font = font
+        
         textField.layer.cornerRadius = 14
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         return textField
     }()
+    
     
     private let addNoteButton: UIButton = {
         let button = UIButton()
@@ -44,6 +51,7 @@ class DailyNoteTextFieldView: UIView {
         super.init(frame: frame)
         setupUI()
         registerForKeyboardNotifications()
+        textBar.delegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -61,14 +69,14 @@ class DailyNoteTextFieldView: UIView {
         
         NSLayoutConstraint.activate([
             textBar.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            textBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+//            textBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            textBar.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -5),
             textBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            textBar.trailingAnchor.constraint(equalTo: addNoteButton.leadingAnchor, constant: -2)
+            textBar.trailingAnchor.constraint(equalTo: addNoteButton.leadingAnchor, constant: -2),
+            textBar.heightAnchor.constraint(greaterThanOrEqualToConstant: 32)
         ])
         
         NSLayoutConstraint.activate([
-//            addNoteButton.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-//            addNoteButton.bottomAnchor.constraint(equalTo: topAnchor, constant: -5),
             addNoteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             addNoteButton.widthAnchor.constraint(equalToConstant: 30),
             addNoteButton.centerYAnchor.constraint(equalTo: textBar.centerYAnchor)
@@ -76,6 +84,7 @@ class DailyNoteTextFieldView: UIView {
         
         bottomConstraint = bottomAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.bottomAnchor ?? bottomAnchor)
         bottomConstraint?.isActive = true
+        
     }
     
     private func registerForKeyboardNotifications() {
@@ -130,4 +139,24 @@ class DailyNoteTextFieldView: UIView {
 
 protocol DailyNoteTextFieldViewDelegate: AnyObject {
     func addNoteButtonTapped(withNote note: String)
+}
+
+extension DailyNoteTextFieldView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let maxHeight: CGFloat = 120
+  
+        // calculate desired height of textView based on its content
+        let contentSize = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: maxHeight))
+        let newHeight = min(contentSize.height, maxHeight)
+        
+        // update height constraint
+        if textView.bounds.height != newHeight {
+            textViewHeightConstraint?.constant = newHeight
+            // update layout
+            layoutIfNeeded()
+        }
+        
+        // enable scrolling when maxHeight exceeded
+        textView.isScrollEnabled = contentSize.height > maxHeight
+    }
 }
