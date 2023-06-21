@@ -41,7 +41,7 @@ class DailyNoteTextFieldView: UIView {
     }()
     
     
-    private let addNoteButton: UIButton = {
+    private lazy var addNoteButton: UIButton = {
         let button = UIButton()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
         let sendImage = UIImage(systemName: "plus.diamond.fill", withConfiguration: imageConfig)
