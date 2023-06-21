@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate {
+class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate, DailyNoteTableViewCellDelegate {
     
     // MARK: - UI Components
     private let dailyNoteTableView: UITableView = {
@@ -88,9 +88,26 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate 
         view.endEditing(true)
     }
     
+    // DailyNoteTextFieldViewDelegate method to handle adding note
     func addNoteButtonTapped(withNote note: String) {
         dailyNotes.insert(note, at: 0)
-        dailyNoteTableView.reloadData()
+        dailyNoteTableView.insertSections(IndexSet(integer: 0), with: .none)
+//        dailyNoteTableView.reloadData()
+    }
+    
+    // DailyNoteTableViewCellDelegate method to handle edit/delete note
+    func handleOption(option: String, cell: DailyNoteTableViewCell) {
+        let indexPath = self.dailyNoteTableView.indexPath(for: cell)
+        guard let noteIndex = indexPath?.section else { return }
+        
+        if option == "Delete" {
+            dailyNotes.remove(at: noteIndex)
+            dailyNoteTableView.deleteSections(IndexSet(integer: noteIndex), with: .none)
+        } else if option == "Edit" {
+            
+        } else if option == "Pin" {
+            // handle when adding persistence of data (pin daily)
+        }
     }
 
 }
@@ -114,6 +131,8 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
 //        cell.selectionStyle = .none
 
         cell.configure(with: dailyNotes[indexPath.section])
+        
+        cell.delegate = self
 
         return cell
     }

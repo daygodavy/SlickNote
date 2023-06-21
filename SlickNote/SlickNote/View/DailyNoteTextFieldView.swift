@@ -40,7 +40,6 @@ class DailyNoteTextFieldView: UIView {
         return textField
     }()
     
-    
     private lazy var addNoteButton: UIButton = {
         let button = UIButton()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
@@ -138,12 +137,12 @@ class DailyNoteTextFieldView: UIView {
         // prevent sending empty notes
         if note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return }
         
-        delegate?.addNoteButtonTapped(withNote: note)
-        
         resetTextbar()
         
         // hide keyboard
         textBar.resignFirstResponder()
+        
+        delegate?.addNoteButtonTapped(withNote: note)
     }
     
     func resetTextbar() {
