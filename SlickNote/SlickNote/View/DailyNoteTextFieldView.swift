@@ -11,11 +11,13 @@ class DailyNoteTextFieldView: UIView {
     
     static let identifier = "DailyNoteTextBar"
     
-    private var bottomConstraint: NSLayoutConstraint?
+    private var textViewBottomConstraint: NSLayoutConstraint?
     
     private var keyboardHeight: CGFloat = 0
     
-    private var textViewHeightConstraint: NSLayoutConstraint?
+    private let textViewMaxHeight: CGFloat = 120
+    
+    private var textBarHeightConstraint: NSLayoutConstraint?
     
     weak var delegate: DailyNoteTextFieldViewDelegate?
     
@@ -73,12 +75,12 @@ class DailyNoteTextFieldView: UIView {
         
         NSLayoutConstraint.activate([
             textBar.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-//            textBar.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
             textBar.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -5),
             textBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             textBar.trailingAnchor.constraint(equalTo: addNoteButton.leadingAnchor, constant: -2),
-            textBar.heightAnchor.constraint(greaterThanOrEqualToConstant: 32)
         ])
+        textBarHeightConstraint = textBar.heightAnchor.constraint(equalToConstant: 32)
+        textBarHeightConstraint?.isActive = true
         
         NSLayoutConstraint.activate([
             addNoteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
@@ -86,8 +88,8 @@ class DailyNoteTextFieldView: UIView {
             addNoteButton.centerYAnchor.constraint(equalTo: textBar.centerYAnchor)
         ])
         
-        bottomConstraint = bottomAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.bottomAnchor ?? bottomAnchor)
-        bottomConstraint?.isActive = true
+        textViewBottomConstraint = bottomAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.bottomAnchor ?? bottomAnchor)
+        textViewBottomConstraint?.isActive = true
         
     }
     
@@ -132,13 +134,24 @@ class DailyNoteTextFieldView: UIView {
         // prevent "fake" placeholder from being added as a note
         if textBar.textColor == UIColor.lightGray { return }
         guard let note = textBar.text else { return } // create alert to say empty note?
-        // omit notes with no characters....
-        if note.trimmingCharacters(in: .whitespaces).isEmpty { return }
+        
+        // prevent sending empty notes
+        if note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return }
+        
         delegate?.addNoteButtonTapped(withNote: note)
-        // clear textfield
-        textBar.text = ""
+        
+        resetTextbar()
+        
         // hide keyboard
         textBar.resignFirstResponder()
+    }
+    
+    func resetTextbar() {
+        textBar.textColor = UIColor.lightGray
+        textBar.text = "Enter your note"
+        
+        textBarHeightConstraint?.constant = 32
+        layoutIfNeeded()
     }
     
 }
@@ -149,21 +162,20 @@ protocol DailyNoteTextFieldViewDelegate: AnyObject {
 
 extension DailyNoteTextFieldView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        let maxHeight: CGFloat = 120
-  
         // calculate desired height of textView based on its content
-        let contentSize = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: maxHeight))
-        let newHeight = min(contentSize.height, maxHeight)
+        let contentSize = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: textViewMaxHeight))
         
+        let newHeight = min(contentSize.height, textViewMaxHeight)
+
         // update height constraint
         if textView.bounds.height != newHeight {
-            textViewHeightConstraint?.constant = newHeight
+            textBarHeightConstraint?.constant = newHeight
             // update layout
             layoutIfNeeded()
         }
         
-        // enable scrolling when maxHeight exceeded
-        textView.isScrollEnabled = contentSize.height > maxHeight
+        // enable scrolling when textViewMaxHeight exceeded
+        textView.isScrollEnabled = contentSize.height > textViewMaxHeight
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -174,9 +186,8 @@ extension DailyNoteTextFieldView: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.textColor = UIColor.lightGray
-            textView.text = "Enter your note"
+        if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty  {
+            resetTextbar()
         }
     }
 }
