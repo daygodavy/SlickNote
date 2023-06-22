@@ -101,11 +101,9 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
     func addNoteButtonTapped(withNote note: String) {
         dailyNotes.insert(note, at: 0)
         dailyNoteTableView.insertSections(IndexSet(integer: 0), with: .none)
-//        dailyNoteTableView.reloadData()
     }
     
     func editNoteButtonTapped(withNote note: String) {
-//        shadeView.removeFromSuperview()
         guard dailyNotes[noteIndex] != note else { return }
         // replace existing note with new note
         dailyNotes[noteIndex] = note
@@ -115,7 +113,6 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
     }
     
     func editModeCancelled() {
-        print("EDITMODECANCELLED")
         shadeView.removeFromSuperview()
     }
     
@@ -132,8 +129,6 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
         } else if option == "Edit" {
             view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
             dailyNoteTextBar.editNote(note: note)
-            
-            // update section if edit was made
         } else if option == "Pin" {
             // handle when adding persistence of data (pin daily)
         }

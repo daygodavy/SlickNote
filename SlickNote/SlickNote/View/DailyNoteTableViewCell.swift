@@ -7,60 +7,14 @@
 
 import UIKit
 
-class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
+class DailyNoteTableViewCell: UITableViewCell {
     
     static let identifier = "DailyNoteCell"
-    
+    private let dailyCell = UIView()
+    private let dailyLabel = UILabel()
+    private let dailyCheckbox = UIButton()
+    private let dailyOptions = UIButton()
     weak var delegate: DailyNoteTableViewCellDelegate?
-    
-    private let dailyCell: UIView = {
-        let cell = UIView()
-        cell.backgroundColor = .white
-        cell.layer.borderWidth = 4.0
-        cell.layer.borderColor = UIColor.white.cgColor
-        cell.layer.cornerRadius = 10
-        cell.layer.masksToBounds = true
-        
-        return cell
-    }()
-    
-    private let dailyLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .label
-        label.textAlignment = .left
-        label.font = .systemFont(ofSize: 16, weight: .medium)
-        label.text = "Error"
-        label.numberOfLines = 0
-        
-        return label
-    }()
-    
-    private lazy var dailyCheckbox: UIButton = {
-        let button = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
-        let uncheckedImage = UIImage(systemName: "circle", withConfiguration: imageConfig)
-        let checkedImage = UIImage(systemName: "checkmark.circle.fill", withConfiguration: imageConfig)
-        button.setImage(uncheckedImage, for: .normal)
-        button.setImage(checkedImage, for: .selected)
-        button.isSelected = false
-        button.tintColor = .systemPink
-        
-        button.addTarget(self, action: #selector(checkboxTapped), for: .touchUpInside)
-
-        return button
-    }()
-    
-    private lazy var dailyOptions: UIButton = {
-        let button = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 14)
-        let optionsImage = UIImage(systemName: "ellipsis", withConfiguration: imageConfig)
-        button.setImage(optionsImage, for: .normal)
-        button.tintColor = .lightGray
-        
-        button.addTarget(self, action: #selector(optionsTapped), for: .touchUpInside)
-        
-        return button
-    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -71,45 +25,117 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public func configure(with label: String) {
-        self.dailyLabel.text = label
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+}
+
+// MARK: SETUP UI + LAYOUT
+extension DailyNoteTableViewCell {
+    private func setupUI() {
+        styleDailyCell()
+        styleDailyLabel()
+        styleDailyCheckbox()
+        styleDailyOptions()
+        layoutUI()
     }
     
-    private func setupUI() {
+    private func styleDailyCell() {
+        dailyCell.backgroundColor = .white
+        dailyCell.layer.borderWidth = 4.0
+        dailyCell.layer.borderColor = UIColor.white.cgColor
+        dailyCell.layer.cornerRadius = 10
+        dailyCell.layer.masksToBounds = true
+        dailyCell.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func styleDailyLabel() {
+        dailyLabel.textColor = .label
+        dailyLabel.textAlignment = .left
+        dailyLabel.font = .systemFont(ofSize: 16, weight: .medium)
+        dailyLabel.text = "Error"
+        dailyLabel.numberOfLines = 0
+        dailyLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func styleDailyCheckbox() {
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        let uncheckedImage = UIImage(systemName: "circle", withConfiguration: imageConfig)
+        let checkedImage = UIImage(systemName: "checkmark.circle.fill", withConfiguration: imageConfig)
+        dailyCheckbox.setImage(uncheckedImage, for: .normal)
+        dailyCheckbox.setImage(checkedImage, for: .selected)
+        dailyCheckbox.isSelected = false
+        dailyCheckbox.tintColor = .systemPink
+        dailyCheckbox.translatesAutoresizingMaskIntoConstraints = false
+        
+        dailyCheckbox.addTarget(self, action: #selector(checkboxTapped), for: .touchUpInside)
+    }
+    
+    private func styleDailyOptions() {
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 14)
+        let optionsImage = UIImage(systemName: "ellipsis", withConfiguration: imageConfig)
+        dailyOptions.setImage(optionsImage, for: .normal)
+        dailyOptions.tintColor = .lightGray
+        dailyOptions.translatesAutoresizingMaskIntoConstraints = false
+        
+        dailyOptions.addTarget(self, action: #selector(optionsTapped), for: .touchUpInside)
+    }
+    
+    private func layoutUI() {
         self.contentView.addSubview(dailyCell)
         self.contentView.addSubview(dailyLabel)
         self.contentView.addSubview(dailyCheckbox)
         self.contentView.addSubview(dailyOptions)
         
-        dailyCell.translatesAutoresizingMaskIntoConstraints = false
-        dailyLabel.translatesAutoresizingMaskIntoConstraints = false
-        dailyCheckbox.translatesAutoresizingMaskIntoConstraints = false
-        dailyOptions.translatesAutoresizingMaskIntoConstraints = false
-        
+        layoutDailyCell()
+        layoutDailyLabel()
+        layoutDailyCheckbox()
+        layoutDailyOptions()
+    }
+    
+    private func layoutDailyCell() {
         NSLayoutConstraint.activate([
             dailyCell.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             dailyCell.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             dailyCell.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 10),
             dailyCell.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -10)
         ])
-        
+    }
+    
+    private func layoutDailyLabel() {
         NSLayoutConstraint.activate([
             dailyLabel.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
             dailyLabel.bottomAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.bottomAnchor),
             dailyLabel.leadingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leadingAnchor, constant: 25),
             dailyLabel.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor, constant: -12)
         ])
-        
+    }
+    
+    private func layoutDailyCheckbox() {
         NSLayoutConstraint.activate([
             dailyCheckbox.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
             dailyCheckbox.bottomAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.bottomAnchor),
             dailyCheckbox.trailingAnchor.constraint(equalTo: dailyLabel.leadingAnchor, constant: -2)
         ])
-        
+    }
+    
+    private func layoutDailyOptions() {
         NSLayoutConstraint.activate([
             dailyOptions.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
             dailyOptions.trailingAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.trailingAnchor)
         ])
+    }
+}
+
+// MARK: METHODS
+extension DailyNoteTableViewCell {
+    public func configure(with label: String) {
+        self.dailyLabel.text = label
     }
     
     @objc private func checkboxTapped(_ sender: UIButton) {
@@ -123,7 +149,6 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
     }
     
     @objc private func optionsTapped(_ sender: UIButton) {
-        
         let optionsMenuInteraction = UIEditMenuInteraction(delegate: self)
         self.contentView.addInteraction(optionsMenuInteraction)
         
@@ -133,40 +158,30 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
         optionsMenuInteraction.presentEditMenu(with: config)
     }
     
-    func editMenuInteraction(_ interaction: UIEditMenuInteraction, menuFor configuration: UIEditMenuConfiguration, suggestedActions: [UIMenuElement]) -> UIMenu? {
+    private func handleOption(option: String) {
+        guard let note = dailyLabel.text else { return }
+        delegate?.handleOption(option: option, cell: self, note: note)
+    }
+}
+
+// MARK: UIEditMenuInteractionDelegate
+extension DailyNoteTableViewCell: UIEditMenuInteractionDelegate {
+    internal func editMenuInteraction(_ interaction: UIEditMenuInteraction, menuFor configuration: UIEditMenuConfiguration, suggestedActions: [UIMenuElement]) -> UIMenu? {
         let edit = UIAction(title: "Edit", handler: { (action) in
-            // signal edit
             self.handleOption(option: action.title)
         })
         
         let delete = UIAction(title: "Delete", handler: { (action) in
-            // signal delete
             self.handleOption(option: action.title)
         })
         
         let pin = UIAction(title: "Pin", handler: { (action) in
-            // signal pin
             self.handleOption(option: action.title)
         })
         
         let menu = UIMenu(title: "", children: [edit, pin, delete])
         return menu
     }
-    
-    private func handleOption(option: String) {
-        guard let note = dailyLabel.text else { return }
-        delegate?.handleOption(option: option, cell: self, note: note)
-    }
-    
-    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        super.setHighlighted(highlighted, animated: animated)
-
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
 }
 
 protocol DailyNoteTableViewCellDelegate: AnyObject {

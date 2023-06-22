@@ -159,7 +159,7 @@ class DailyNoteTextFieldView: UIView {
     @objc private func addNoteButtonTapped() {
         // prevent "fake" placeholder from being added as a note
         if textBar.textColor == UIColor.lightGray { return }
-        guard let note = textBar.text else { return } // create alert to say empty note?
+        guard let note = textBar.text else { return }
         
         // prevent sending empty notes
         if note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return }
@@ -205,7 +205,6 @@ class DailyNoteTextFieldView: UIView {
         // update height constraint
         if textView.bounds.height != newHeight {
             textBarHeightConstraint?.constant = newHeight
-            // update layout
             layoutIfNeeded()
         }
         
