@@ -18,7 +18,8 @@
 		5B5E5DAA2A3CF18300881219 /* DailyNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */; };
 		5B5E5DAB2A3D0F4400881219 /* DailyNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5D772A3BC17F00881219 /* DailyNoteViewController.swift */; };
 		5B5E5DAD2A40FDB900881219 /* DailyNoteTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DAC2A40FDB900881219 /* DailyNoteTextFieldView.swift */; };
-		5B5E5DAF2A44F53E00881219 /* DailyNoteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DAE2A44F53E00881219 /* DailyNoteModel.swift */; };
+		5B5E5DB52A4503E300881219 /* DailyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DB42A4503E300881219 /* DailyNote.swift */; };
+		5B5E5DB72A4503F300881219 /* DailyNoteCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DB62A4503F300881219 /* DailyNoteCollection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +55,8 @@
 		5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteTableViewCell.swift; sourceTree = "<group>"; };
 		5B5E5DAC2A40FDB900881219 /* DailyNoteTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteTextFieldView.swift; sourceTree = "<group>"; };
-		5B5E5DAE2A44F53E00881219 /* DailyNoteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteModel.swift; sourceTree = "<group>"; };
+		5B5E5DB42A4503E300881219 /* DailyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNote.swift; sourceTree = "<group>"; };
+		5B5E5DB62A4503F300881219 /* DailyNoteCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteCollection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +140,8 @@
 		5B5E5DA62A3BC6A700881219 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5B5E5DAE2A44F53E00881219 /* DailyNoteModel.swift */,
+				5B5E5DB42A4503E300881219 /* DailyNote.swift */,
+				5B5E5DB62A4503F300881219 /* DailyNoteCollection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,10 +294,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B5E5DAB2A3D0F4400881219 /* DailyNoteViewController.swift in Sources */,
+				5B5E5DB72A4503F300881219 /* DailyNoteCollection.swift in Sources */,
 				5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */,
 				5B5E5D7E2A3BC17F00881219 /* SlickNote.xcdatamodeld in Sources */,
 				5B5E5D762A3BC17F00881219 /* SceneDelegate.swift in Sources */,
-				5B5E5DAF2A44F53E00881219 /* DailyNoteModel.swift in Sources */,
+				5B5E5DB52A4503E300881219 /* DailyNote.swift in Sources */,
 				5B5E5DAD2A40FDB900881219 /* DailyNoteTextFieldView.swift in Sources */,
 				5B5E5DAA2A3CF18300881219 /* DailyNoteTableViewCell.swift in Sources */,
 			);
