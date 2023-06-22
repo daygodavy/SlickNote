@@ -8,116 +8,114 @@
 import UIKit
 
 class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate, DailyNoteTableViewCellDelegate {
-    
     // MARK: - UI Components
-    private let dailyNoteTableView: UITableView = {
-        let tableView = UITableView()
-        
-        tableView.backgroundColor = .clear
-        tableView.allowsSelection = true
-        
-        tableView.separatorStyle = .none
-        
-        tableView.register(DailyNoteTableViewCell.self, forCellReuseIdentifier: "DailyNoteCell")
-        
-        return tableView
-    }()
-    
-    private lazy var shadeView: UIView = {
-        let view = UIView(frame: view.bounds)
-        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        
-        return view
-    }()
-  
+    private let dailyNoteTableView = UITableView()
+    private lazy var shadeView = UIView(frame: view.bounds)
     private var dailyNoteTextBar: DailyNoteTextFieldView!
-
     
     // MARK: - VARIABLES
     private var dailyNotes = [String]()
-    
     private var noteIndex: Int!
 
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.setupUI()
-        
+        setupUI()
+        registerHideKeyboard()
         dailyNoteTableView.dataSource = self
         dailyNoteTableView.delegate = self
-        
         dailyNoteTextBar.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
-    // MARK: - Setup UI
+}
+
+// MARK: UI Setup + Layout
+extension DailyNoteViewController {
     private func setupUI() {
+        styleView()
+        styleDailyNoteTableView()
+        styleShadeView()
+        styleDailyNoteTextBar()
+        layoutUI()
+    }
+    
+    private func styleView() {
         self.view.backgroundColor = UIColor(red: 246/255, green: 214/255, blue: 211/255, alpha: 1.0)
-        
         title = "Slick Note"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.backgroundColor = .clear
-        
-        self.setupTableView()
-        self.setupTextBar()
     }
     
-    private func setupTableView() {
-        view.addSubview(dailyNoteTableView)
-        
+    private func styleDailyNoteTableView() {
+        dailyNoteTableView.backgroundColor = .clear
+        dailyNoteTableView.allowsSelection = true
+        dailyNoteTableView.separatorStyle = .none
         dailyNoteTableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        dailyNoteTableView.register(DailyNoteTableViewCell.self, forCellReuseIdentifier: "DailyNoteCell")
+    }
+    
+    private func styleShadeView() {
+        shadeView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+    }
+    
+    private func styleDailyNoteTextBar() {
+        dailyNoteTextBar = DailyNoteTextFieldView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 50))
+        dailyNoteTextBar.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func layoutUI() {
+        view.addSubview(dailyNoteTableView)
+        view.addSubview(dailyNoteTextBar)
+        layoutDailyNoteTableView()
+        layoutDailyNoteTextBar()
+    }
+    
+    private func layoutDailyNoteTableView() {
         NSLayoutConstraint.activate([
             dailyNoteTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
             dailyNoteTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             dailyNoteTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             dailyNoteTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
+    }
+    
+    private func layoutDailyNoteTextBar() {
+        NSLayoutConstraint.activate([
+            dailyNoteTextBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
+            dailyNoteTextBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5),
+            dailyNoteTextBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+}
 
-    }
-    
-    private func setupTextBar() {
-        dailyNoteTextBar = DailyNoteTextFieldView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 50))
-        
-        view.addSubview(dailyNoteTextBar)
-        
-        dailyNoteTextBar.translatesAutoresizingMaskIntoConstraints = false
-        dailyNoteTextBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true
-        dailyNoteTextBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
-        dailyNoteTextBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        let handleKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(handleKeyboard)
-    }
-    
-    @objc private func hideKeyboard() {
-        view.endEditing(true)
-    }
-    
+
+// MARK: Methods
+extension DailyNoteViewController {
     // DailyNoteTextFieldViewDelegate method to handle adding note
-    func addNoteButtonTapped(withNote note: String) {
+    internal func addNoteButtonTapped(withNote note: String) {
         dailyNotes.insert(note, at: 0)
         dailyNoteTableView.insertSections(IndexSet(integer: 0), with: .none)
     }
     
-    func editNoteButtonTapped(withNote note: String) {
+    // DailyNoteTextFieldViewDelegate method to handle editing note
+    internal func editNoteButtonTapped(withNote note: String) {
         guard dailyNotes[noteIndex] != note else { return }
         // replace existing note with new note
         dailyNotes[noteIndex] = note
-        
         // update section in table
         dailyNoteTableView.reloadSections(IndexSet(integer: noteIndex), with: .none)
     }
     
-    func editModeCancelled() {
+    internal func editModeCancelled() {
         shadeView.removeFromSuperview()
     }
     
     // DailyNoteTableViewCellDelegate method to handle edit/delete note
-    func handleOption(option: String, cell: DailyNoteTableViewCell, note: String) {
+    internal func handleOption(option: String, cell: DailyNoteTableViewCell, note: String) {
         let indexPath = self.dailyNoteTableView.indexPath(for: cell)
         guard let section = indexPath?.section else { return }
         noteIndex = section
@@ -133,9 +131,20 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
             // handle when adding persistence of data (pin daily)
         }
     }
-
+    
+    private func registerHideKeyboard() {
+        // Handles hiding keyboard if user taps on superview
+        let handleKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(handleKeyboard)
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
+    }
 }
 
+
+// MARK: UITableViewDelegate + UITableViewDataSource
 extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return dailyNotes.count
@@ -149,16 +158,16 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyNoteTableViewCell.identifier, for: indexPath) as? DailyNoteTableViewCell else {
             fatalError("The TableView could not dequeue a DailyNoteTableViewCell in ViewController.")
         }
-
 //        cell.contentView.backgroundColor = .systemBrown
         cell.backgroundColor = .clear
 //        cell.selectionStyle = .none
-
         cell.configure(with: dailyNotes[indexPath.section])
-        
         cell.delegate = self
-
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -168,10 +177,6 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10.0
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

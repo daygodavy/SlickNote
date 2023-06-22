@@ -8,7 +8,6 @@
 import UIKit
 
 class DailyNoteTableViewCell: UITableViewCell {
-    
     static let identifier = "DailyNoteCell"
     private let dailyCell = UIView()
     private let dailyLabel = UILabel()
@@ -27,7 +26,6 @@ class DailyNoteTableViewCell: UITableViewCell {
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -35,7 +33,8 @@ class DailyNoteTableViewCell: UITableViewCell {
     }
 }
 
-// MARK: SETUP UI + LAYOUT
+
+// MARK: Setup UI + Layout
 extension DailyNoteTableViewCell {
     private func setupUI() {
         styleDailyCell()
@@ -132,7 +131,8 @@ extension DailyNoteTableViewCell {
     }
 }
 
-// MARK: METHODS
+
+// MARK: Methods
 extension DailyNoteTableViewCell {
     public func configure(with label: String) {
         self.dailyLabel.text = label
@@ -164,6 +164,7 @@ extension DailyNoteTableViewCell {
     }
 }
 
+
 // MARK: UIEditMenuInteractionDelegate
 extension DailyNoteTableViewCell: UIEditMenuInteractionDelegate {
     internal func editMenuInteraction(_ interaction: UIEditMenuInteraction, menuFor configuration: UIEditMenuConfiguration, suggestedActions: [UIMenuElement]) -> UIMenu? {
@@ -184,6 +185,8 @@ extension DailyNoteTableViewCell: UIEditMenuInteractionDelegate {
     }
 }
 
+
+// MARK: Protocols
 protocol DailyNoteTableViewCellDelegate: AnyObject {
     func handleOption(option: String, cell: DailyNoteTableViewCell, note: String)
 }
