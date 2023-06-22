@@ -143,8 +143,7 @@ class DailyNoteTextFieldView: UIView {
         
         // handles event where user taps out of textView to cancel edit
         if editMode {
-            editMode = false
-            resetTextBar()
+            editModeCancelled()
         }
     }
     
@@ -166,22 +165,24 @@ class DailyNoteTextFieldView: UIView {
         if note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return }
         
         if editMode {
-            editMode = false
+            editModeCancelled()
             delegate?.editNoteButtonTapped(withNote: note)
         } else {
+            resetTextBar()
             delegate?.addNoteButtonTapped(withNote: note)
         }
-        
-        resetTextBar()
-        
-        // hide keyboard
-        textBar.resignFirstResponder()
     }
     
     @objc private func cancelEditButtonTapped() {
-        resetTextBar()
-        textBar.resignFirstResponder()
+        editModeCancelled()
     }
+    
+    private func editModeCancelled() {
+        editMode = false
+        resetTextBar()
+        delegate?.editModeCancelled()
+    }
+    
     
     private func resetTextBar() {
         textBar.textColor = UIColor.lightGray
@@ -189,6 +190,10 @@ class DailyNoteTextFieldView: UIView {
         
         textBarHeightConstraint?.constant = 32
         layoutIfNeeded()
+        
+        if keyboardHeight > 0 {
+            textBar.resignFirstResponder()
+        }
     }
     
     private func updateTextBarSize(_ textView: UITextView) {
@@ -223,6 +228,7 @@ class DailyNoteTextFieldView: UIView {
 protocol DailyNoteTextFieldViewDelegate: AnyObject {
     func addNoteButtonTapped(withNote note: String)
     func editNoteButtonTapped(withNote note: String)
+    func editModeCancelled()
 }
 
 extension DailyNoteTextFieldView: UITextViewDelegate {

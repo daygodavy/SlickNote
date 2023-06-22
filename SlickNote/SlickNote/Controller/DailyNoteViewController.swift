@@ -114,6 +114,11 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
         dailyNoteTableView.reloadSections(IndexSet(integer: noteIndex), with: .none)
     }
     
+    func editModeCancelled() {
+        print("EDITMODECANCELLED")
+        shadeView.removeFromSuperview()
+    }
+    
     // DailyNoteTableViewCellDelegate method to handle edit/delete note
     func handleOption(option: String, cell: DailyNoteTableViewCell, note: String) {
         let indexPath = self.dailyNoteTableView.indexPath(for: cell)
@@ -125,7 +130,7 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
             dailyNotes.remove(at: noteIndex)
             dailyNoteTableView.deleteSections(IndexSet(integer: noteIndex), with: .none)
         } else if option == "Edit" {
-//            view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
+            view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
             dailyNoteTextBar.editNote(note: note)
             
             // update section if edit was made
