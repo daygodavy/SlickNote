@@ -31,6 +31,7 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
         label.font = .systemFont(ofSize: 16, weight: .medium)
         label.text = "Error"
         label.numberOfLines = 0
+        
         return label
     }()
     
@@ -64,7 +65,6 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setupUI()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -137,7 +137,6 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
         let edit = UIAction(title: "Edit", handler: { (action) in
             // signal edit
             self.handleOption(option: action.title)
-            
         })
         
         let delete = UIAction(title: "Delete", handler: { (action) in
@@ -146,7 +145,7 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
         })
         
         let pin = UIAction(title: "Pin", handler: { (action) in
-            // signal delete
+            // signal pin
             self.handleOption(option: action.title)
         })
         
@@ -155,7 +154,8 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
     }
     
     private func handleOption(option: String) {
-        delegate?.handleOption(option: option, cell: self)
+        guard let note = dailyLabel.text else { return }
+        delegate?.handleOption(option: option, cell: self, note: note)
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -170,5 +170,5 @@ class DailyNoteTableViewCell: UITableViewCell, UIEditMenuInteractionDelegate {
 }
 
 protocol DailyNoteTableViewCellDelegate: AnyObject {
-    func handleOption(option: String, cell: DailyNoteTableViewCell)
+    func handleOption(option: String, cell: DailyNoteTableViewCell, note: String)
 }

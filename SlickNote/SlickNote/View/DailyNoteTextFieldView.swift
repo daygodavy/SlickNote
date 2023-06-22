@@ -19,6 +19,8 @@ class DailyNoteTextFieldView: UIView {
     
     private var textBarHeightConstraint: NSLayoutConstraint?
     
+    private var editMode: Bool = false
+    
     weak var delegate: DailyNoteTextFieldViewDelegate?
     
     private let textBar: UITextView = {
@@ -52,6 +54,19 @@ class DailyNoteTextFieldView: UIView {
         return button
     }()
     
+    private lazy var cancelEditButton: UIButton = {
+        let button = UIButton()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 24)
+        let cancelImage = UIImage(systemName: "xmark.circle.fill", withConfiguration: imageConfig)
+        button.setImage(cancelImage, for: .normal)
+        button.tintColor = .lightGray
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        button.addTarget(self, action: #selector(cancelEditButtonTapped), for: .touchUpInside)
+        
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -65,17 +80,18 @@ class DailyNoteTextFieldView: UIView {
     
     private func setupUI() {
         layer.cornerRadius = 14
-        backgroundColor = .white
+        backgroundColor = .clear
         layer.borderWidth = 1
         layer.borderColor = UIColor.lightGray.cgColor
         addSubview(textBar)
         addSubview(addNoteButton)
+        addSubview(cancelEditButton)
         
         
         NSLayoutConstraint.activate([
             textBar.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             textBar.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -5),
-            textBar.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            textBar.leadingAnchor.constraint(equalTo: cancelEditButton.trailingAnchor, constant: 5),
             textBar.trailingAnchor.constraint(equalTo: addNoteButton.leadingAnchor, constant: -2),
         ])
         textBarHeightConstraint = textBar.heightAnchor.constraint(equalToConstant: 32)
@@ -85,6 +101,12 @@ class DailyNoteTextFieldView: UIView {
             addNoteButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             addNoteButton.widthAnchor.constraint(equalToConstant: 30),
             addNoteButton.centerYAnchor.constraint(equalTo: textBar.centerYAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            cancelEditButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            cancelEditButton.widthAnchor.constraint(equalToConstant: 30),
+            cancelEditButton.centerYAnchor.constraint(equalTo: textBar.centerYAnchor)
         ])
         
         textViewBottomConstraint = bottomAnchor.constraint(equalTo: superview?.safeAreaLayoutGuide.bottomAnchor ?? bottomAnchor)
@@ -118,6 +140,12 @@ class DailyNoteTextFieldView: UIView {
             self.updateBottomConstraint()
             self.superview?.layoutIfNeeded()
         }
+        
+        // handles event where user taps out of textView to cancel edit
+        if editMode {
+            editMode = false
+            resetTextBar()
+        }
     }
     
     private func updateBottomConstraint() {
@@ -137,15 +165,25 @@ class DailyNoteTextFieldView: UIView {
         // prevent sending empty notes
         if note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { return }
         
-        resetTextbar()
+        if editMode {
+            editMode = false
+            delegate?.editNoteButtonTapped(withNote: note)
+        } else {
+            delegate?.addNoteButtonTapped(withNote: note)
+        }
+        
+        resetTextBar()
         
         // hide keyboard
         textBar.resignFirstResponder()
-        
-        delegate?.addNoteButtonTapped(withNote: note)
     }
     
-    func resetTextbar() {
+    @objc private func cancelEditButtonTapped() {
+        resetTextBar()
+        textBar.resignFirstResponder()
+    }
+    
+    private func resetTextBar() {
         textBar.textColor = UIColor.lightGray
         textBar.text = "Enter your note"
         
@@ -153,14 +191,7 @@ class DailyNoteTextFieldView: UIView {
         layoutIfNeeded()
     }
     
-}
-
-protocol DailyNoteTextFieldViewDelegate: AnyObject {
-    func addNoteButtonTapped(withNote note: String)
-}
-
-extension DailyNoteTextFieldView: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
+    private func updateTextBarSize(_ textView: UITextView) {
         // calculate desired height of textView based on its content
         let contentSize = textView.sizeThatFits(CGSize(width: textView.bounds.width, height: textViewMaxHeight))
         
@@ -177,6 +208,28 @@ extension DailyNoteTextFieldView: UITextViewDelegate {
         textView.isScrollEnabled = contentSize.height > textViewMaxHeight
     }
     
+    func editNote(note: String) {
+        editMode = true
+        
+        textBar.textColor = UIColor.black
+        textBar.text = note
+        updateTextBarSize(textBar)
+        // Note: handle wait time for text to appear for showing keyboard
+        textBar.becomeFirstResponder()
+    }
+    
+}
+
+protocol DailyNoteTextFieldViewDelegate: AnyObject {
+    func addNoteButtonTapped(withNote note: String)
+    func editNoteButtonTapped(withNote note: String)
+}
+
+extension DailyNoteTextFieldView: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        updateTextBarSize(textView)
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = ""
@@ -186,7 +239,7 @@ extension DailyNoteTextFieldView: UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty  {
-            resetTextbar()
+            resetTextBar()
         }
     }
 }

@@ -19,8 +19,15 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
         tableView.separatorStyle = .none
         
         tableView.register(DailyNoteTableViewCell.self, forCellReuseIdentifier: "DailyNoteCell")
-
+        
         return tableView
+    }()
+    
+    private lazy var shadeView: UIView = {
+        let view = UIView(frame: view.bounds)
+        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        
+        return view
     }()
   
     private var dailyNoteTextBar: DailyNoteTextFieldView!
@@ -28,6 +35,8 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
     
     // MARK: - VARIABLES
     private var dailyNotes = [String]()
+    
+    private var noteIndex: Int!
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -95,16 +104,31 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
 //        dailyNoteTableView.reloadData()
     }
     
+    func editNoteButtonTapped(withNote note: String) {
+//        shadeView.removeFromSuperview()
+        guard dailyNotes[noteIndex] != note else { return }
+        // replace existing note with new note
+        dailyNotes[noteIndex] = note
+        
+        // update section in table
+        dailyNoteTableView.reloadSections(IndexSet(integer: noteIndex), with: .none)
+    }
+    
     // DailyNoteTableViewCellDelegate method to handle edit/delete note
-    func handleOption(option: String, cell: DailyNoteTableViewCell) {
+    func handleOption(option: String, cell: DailyNoteTableViewCell, note: String) {
         let indexPath = self.dailyNoteTableView.indexPath(for: cell)
-        guard let noteIndex = indexPath?.section else { return }
+        guard let section = indexPath?.section else { return }
+        noteIndex = section
         
         if option == "Delete" {
+            // NOTE: !UIAlert to confirm deletion first!
             dailyNotes.remove(at: noteIndex)
             dailyNoteTableView.deleteSections(IndexSet(integer: noteIndex), with: .none)
         } else if option == "Edit" {
+//            view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
+            dailyNoteTextBar.editNote(note: note)
             
+            // update section if edit was made
         } else if option == "Pin" {
             // handle when adding persistence of data (pin daily)
         }
