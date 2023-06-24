@@ -46,7 +46,7 @@ extension DailyNoteTableViewCell {
     
     private func styleDailyCell() {
         dailyCell.backgroundColor = .white
-        dailyCell.layer.borderWidth = 4.0
+        dailyCell.layer.borderWidth = 2.0
         dailyCell.layer.borderColor = UIColor.white.cgColor
         dailyCell.layer.cornerRadius = 10
         dailyCell.layer.masksToBounds = true
@@ -136,15 +136,26 @@ extension DailyNoteTableViewCell {
 extension DailyNoteTableViewCell {
     public func configure(with label: String) {
         self.dailyLabel.text = label
+        
+        // FIXME: temp bug fix for when deleting pinned cell; new cell pinned
+        dailyCell.layer.borderColor = UIColor.white.cgColor
+    }
+    
+    public func togglePin() {
+        if dailyCell.layer.borderColor == UIColor.white.cgColor {
+            dailyCell.layer.borderColor = UIColor.systemYellow.cgColor
+        } else {
+            dailyCell.layer.borderColor = UIColor.white.cgColor
+        }
     }
     
     @objc private func checkboxTapped(_ sender: UIButton) {
         if dailyCheckbox.isSelected == false {
             dailyCheckbox.isSelected = true
-            // add strikethrough to dailyLabel
+            // TODO: add strikethrough to dailyLabel
         } else {
             dailyCheckbox.isSelected = false
-            // remove strikethrough from dailyLabel
+            // TODO: remove strikethrough from dailyLabel
         }
     }
     

@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="21G72" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DailyNote" representedClassName="DailyNote" syncable="YES">
+        <attribute name="checked" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="index" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <attribute name="pinned" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="collection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DailyNoteCollection" inverseName="notes" inverseEntity="DailyNoteCollection"/>
+        <relationship name="pinnedCollection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DailyNoteCollection" inverseName="pinnedNotes" inverseEntity="DailyNoteCollection"/>
+    </entity>
+    <entity name="DailyNoteCollection" representedClassName="DailyNoteCollection" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DailyNote" inverseName="collection" inverseEntity="DailyNote"/>
+        <relationship name="pinnedNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="DailyNote" inverseName="pinnedCollection" inverseEntity="DailyNote"/>
+    </entity>
 </model>

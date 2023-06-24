@@ -20,6 +20,10 @@
 		5B5E5DAD2A40FDB900881219 /* DailyNoteTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DAC2A40FDB900881219 /* DailyNoteTextFieldView.swift */; };
 		5B5E5DB52A4503E300881219 /* DailyNote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DB42A4503E300881219 /* DailyNote.swift */; };
 		5B5E5DB72A4503F300881219 /* DailyNoteCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DB62A4503F300881219 /* DailyNoteCollection.swift */; };
+		5B5E5DC42A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DC02A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift */; };
+		5B5E5DC52A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DC12A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift */; };
+		5B5E5DC62A46202B00881219 /* DailyNote+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DC22A46202B00881219 /* DailyNote+CoreDataClass.swift */; };
+		5B5E5DC72A46202B00881219 /* DailyNote+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5E5DC32A46202B00881219 /* DailyNote+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,10 @@
 		5B5E5DAC2A40FDB900881219 /* DailyNoteTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteTextFieldView.swift; sourceTree = "<group>"; };
 		5B5E5DB42A4503E300881219 /* DailyNote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNote.swift; sourceTree = "<group>"; };
 		5B5E5DB62A4503F300881219 /* DailyNoteCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteCollection.swift; sourceTree = "<group>"; };
+		5B5E5DC02A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNoteCollection+CoreDataClass.swift"; path = "SlickNote/Model/DailyNoteCollection+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5B5E5DC12A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNoteCollection+CoreDataProperties.swift"; path = "SlickNote/Model/DailyNoteCollection+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		5B5E5DC22A46202B00881219 /* DailyNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNote+CoreDataClass.swift"; path = "SlickNote/Model/DailyNote+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5B5E5DC32A46202B00881219 /* DailyNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNote+CoreDataProperties.swift"; path = "SlickNote/Model/DailyNote+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +95,8 @@
 		5B5E5D672A3BC17E00881219 = {
 			isa = PBXGroup;
 			children = (
+				5B5E5DB42A4503E300881219 /* DailyNote.swift */,
+				5B5E5DB62A4503F300881219 /* DailyNoteCollection.swift */,
 				5B5E5D722A3BC17F00881219 /* SlickNote */,
 				5B5E5D8C2A3BC18100881219 /* SlickNoteTests */,
 				5B5E5D962A3BC18100881219 /* SlickNoteUITests */,
@@ -140,8 +150,10 @@
 		5B5E5DA62A3BC6A700881219 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5B5E5DB42A4503E300881219 /* DailyNote.swift */,
-				5B5E5DB62A4503F300881219 /* DailyNoteCollection.swift */,
+				5B5E5DC02A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift */,
+				5B5E5DC12A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift */,
+				5B5E5DC22A46202B00881219 /* DailyNote+CoreDataClass.swift */,
+				5B5E5DC32A46202B00881219 /* DailyNote+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -296,9 +308,13 @@
 				5B5E5DAB2A3D0F4400881219 /* DailyNoteViewController.swift in Sources */,
 				5B5E5DB72A4503F300881219 /* DailyNoteCollection.swift in Sources */,
 				5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */,
+				5B5E5DC52A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift in Sources */,
+				5B5E5DC62A46202B00881219 /* DailyNote+CoreDataClass.swift in Sources */,
+				5B5E5DC42A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift in Sources */,
 				5B5E5D7E2A3BC17F00881219 /* SlickNote.xcdatamodeld in Sources */,
 				5B5E5D762A3BC17F00881219 /* SceneDelegate.swift in Sources */,
 				5B5E5DB52A4503E300881219 /* DailyNote.swift in Sources */,
+				5B5E5DC72A46202B00881219 /* DailyNote+CoreDataProperties.swift in Sources */,
 				5B5E5DAD2A40FDB900881219 /* DailyNoteTextFieldView.swift in Sources */,
 				5B5E5DAA2A3CF18300881219 /* DailyNoteTableViewCell.swift in Sources */,
 			);

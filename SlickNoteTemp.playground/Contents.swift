@@ -110,6 +110,18 @@ extension DailyNoteViewController {
 
 // MARK: Methods
 extension DailyNoteViewController {
+//    private func createNewNote(_ note: String) -> DailyNote {
+//        let dailyNote = DailyNote(context: context)
+//        dailyNote.note = note
+//        dailyNote.date = Date()
+//        dailyNote.pinned = false
+//        dailyNote.checked = false
+////        dailyNote.index =
+//        // FIXME: UNCOMMENT BELOW
+//        dailyNoteCollection?.addToNotes(dailyNote)
+//
+//        return dailyNote
+//    }
     private func createNewNote(_ note: String) {
         let dailyNote = DailyNote(context: context)
         dailyNote.note = note
@@ -117,19 +129,36 @@ extension DailyNoteViewController {
         dailyNote.pinned = false
         dailyNote.checked = false
 //        dailyNote.index =
+        // FIXME: UNCOMMENT BELOW
         dailyNoteCollection?.addToNotes(dailyNote)
     }
     
     // DailyNoteTextFieldViewDelegate method to handle adding note
     internal func addNoteButtonTapped(withNote note: String) {
         createNewNote(note)
+        print("CREATED NEW NOTE1: \(dailyNotes.count)")
+//        let newNote = createNewNote(note)
+//        dailyNotes.insert(newNote, at: 0)
         
         // save data
-        do { try self.context.save() }
-        catch { print(error) }
+        do {
+            try self.context.save()
+        } catch {
+            print(error)
+        }
         
-        // re-fetch data
+        // TODO: RE-FETCH DATA
         fetchDailyNoteCollection()
+        print("CREATED NEW NOTE2: \(dailyNotes.count)")
+        
+        // TODO: DISPATCH QUEUE
+//        DispatchQueue.main.async {
+//            self.dailyNoteTableView.reloadData()
+//        }
+        
+        // TODO: OLD
+//        dailyNotes.insert(note, at: 0)
+//        dailyNoteTableView.insertSections(IndexSet(integer: 0), with: .none)
     }
     
     // DailyNoteTextFieldViewDelegate method to handle editing note
@@ -138,11 +167,25 @@ extension DailyNoteViewController {
         dailyNotes[noteIndex].note = note
         
         // save data
-        do { try self.context.save() }
-        catch { print(error) }
+        do {
+            try self.context.save()
+        } catch {
+            print(error)
+        }
         
-        // re-fetch data
+        // TODO: RE-FETCH DATA
         fetchDailyNoteCollection()
+        
+        // TODO: DISPATCH QUEUE
+//        DispatchQueue.main.async {
+//            self.dailyNoteTableView.reloadData()
+//        }
+        
+        
+        // TODO: OLD
+//        guard dailyNotes[noteIndex] != note else { return }
+//        dailyNotes[noteIndex] = note
+//        dailyNoteTableView.reloadSections(IndexSet(integer: noteIndex), with: .none)
     }
     
     internal func editModeCancelled() {
@@ -156,25 +199,49 @@ extension DailyNoteViewController {
         noteIndex = section
         
         if option == "Delete" {
+            
             // remove note
             let noteToDelete = dailyNotes[noteIndex]
+            
             dailyNoteCollection?.removeFromNotes(noteToDelete)
+            
             self.context.delete(noteToDelete)
+            //            dailyNotes.remove(at: noteIndex)
+            
+            print("DELETED NOTE1: \(dailyNotes.count)")
             
             dailyNotes.remove(at: noteIndex)
             
             // save the data
-            do { try self.context.save() }
-            catch { print(error) }
+            do {
+                try self.context.save()
+            } catch {
+                print(error)
+            }
+            print("DELETED NOTE2: \(dailyNotes.count)")
             
-            // re-fetch data
+            
+            // TODO: RE-FETCH DATA
             fetchDailyNoteCollection()
+            print("DELETED NOTE3: \(dailyNotes.count)")
+            
+            // TODO: DISPATCH QUEUE
+//            DispatchQueue.main.async {
+//                self.dailyNoteTableView.reloadData()
+//            }
+            
+            // TODO: OLD
+            // NOTE: !UIAlert to confirm deletion first!
+//            dailyNotes.remove(at: noteIndex)
+//            dailyNoteTableView.deleteSections(IndexSet(integer: noteIndex), with: .none)
         } else if option == "Edit" {
             view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
             dailyNoteTextBar.editNote(note: note)
         } else if option == "Pin" {
-            // TODO: update model
+            // update model
+            
             // handle when adding persistence of data (pin daily)
+            
             // toggle pin -> change appearance to represent pin or not
             cell.togglePin()
         }
@@ -210,8 +277,11 @@ extension DailyNoteViewController {
                 // if today's DailyNoteCollection doesn't exist/empty -> create new DailyNoteCollection
                 createDailyNoteCollection()
                 
-                do { try self.context.save() }
-                catch { print(error) }
+                do {
+                    try self.context.save()
+                } catch {
+                    print (error)
+                }
             }
             
             DispatchQueue.main.async {
@@ -226,15 +296,20 @@ extension DailyNoteViewController {
     func fetchDailyNotes(_ collection: NSSet?) {
         guard let notes = collection as? Set<DailyNote> else { return }
         if !notes.isEmpty {
+            print("NOT EMPTY: \(dailyNotes.first)")
             let sortedNotes = notes.sorted { $0.date! > $1.date! }
             self.dailyNotes = sortedNotes
         } else {
+            print("EMPTY: \(dailyNotes.first)")
             // TODO: instantiate dailyNotes for empty dailyNotesCollection?
         }
     }
     
     func createDailyNoteCollection() {
         let newCollection = DailyNoteCollection(context: context, date: Date())
+        
+//        let newCollection = DailyNoteCollection(context: context)
+//        newCollection.date = Date()
         
         // TODO: if yesterday's pinnedNotes exists -> store in today's pinnedNotes and notes -> ?delete yesterday's?
         guard let pinnedNotes = checkPinnedNotes() else { return }
@@ -294,7 +369,12 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
 //        cell.contentView.backgroundColor = .systemBrown
         cell.backgroundColor = .clear
 //        cell.selectionStyle = .none
-
+        
+//        print("TEST - dailyNotes.count: \(dailyNotes.count)")
+//        print("TEST - indexPath.section: \(indexPath.section)")
+//        print("TEST - dailyNotes[indexPath.section]: \(dailyNotes[indexPath.section])")
+//        print("TEST - dailyNotes[indexPath.section].note: \(dailyNotes[indexPath.section].note)")
+//        print("=================")
         cell.configure(with: dailyNotes[indexPath.section].note!)
         cell.delegate = self
         
