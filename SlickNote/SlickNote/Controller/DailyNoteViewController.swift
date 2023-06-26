@@ -208,7 +208,9 @@ extension DailyNoteViewController {
                 fetchDailyNotes(self.dailyNoteCollection?.notes)
             } else {
                 // if today's DailyNoteCollection doesn't exist/empty -> create new DailyNoteCollection
-                createDailyNoteCollection()
+                // TODO: FIX BUG WHEN ADDING FIRST NOTE TO NEW COLLECTION - TRACE FROM HERE AND ADDNEWNOTEBUTTON
+                let newCollection = createDailyNoteCollection()
+                self.dailyNoteCollection = newCollection
                 
                 do { try self.context.save() }
                 catch { print(error) }
@@ -233,16 +235,17 @@ extension DailyNoteViewController {
         }
     }
     
-    func createDailyNoteCollection() {
+    func createDailyNoteCollection() -> DailyNoteCollection {
         let newCollection = DailyNoteCollection(context: context, date: Date())
         
         // TODO: if yesterday's pinnedNotes exists -> store in today's pinnedNotes and notes -> ?delete yesterday's?
-        guard let pinnedNotes = checkPinnedNotes() else { return }
+        guard let pinnedNotes = checkPinnedNotes() else { return newCollection }
         newCollection.pinnedNotes = pinnedNotes
         newCollection.notes = pinnedNotes
         
         fetchDailyNotes(newCollection.notes)
         
+        return newCollection
         // TODO: if no pinned notes -> instantiate dailyNotes for empty dailyNotesCollection?
     }
     
