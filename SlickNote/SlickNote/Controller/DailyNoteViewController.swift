@@ -146,19 +146,31 @@ extension DailyNoteViewController {
         if option == "Delete" {
             // remove note
             let noteToDelete = dailyNotes[noteIndex]
+            if noteToDelete.pinned { dailyNoteCollection?.removeFromPinnedNotes(noteToDelete) }
             dailyNoteCollection?.removeFromNotes(noteToDelete)
             self.context.delete(noteToDelete)
             dailyNotes.remove(at: noteIndex)
-            
             saveAndRefetch()
         } else if option == "Edit" {
             view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
             dailyNoteTextBar.editNote(note: note)
         } else if option == "Pin" {
             // TODO: update model
+            if dailyNotes[noteIndex].pinned {
+                // if true -> unpin
+                dailyNotes[noteIndex].pinned = false
+                // remove from dailyNoteCollection.pinnedNotes
+                dailyNoteCollection?.removeFromPinnedNotes(dailyNotes[noteIndex])
+            } else {
+                // false -> pin
+                dailyNotes[noteIndex].pinned = true
+                // add to dailyNoteCollection.pinnedNotes
+                dailyNoteCollection?.addToPinnedNotes(dailyNotes[noteIndex])
+            }
             // handle when adding persistence of data (pin daily)
             // toggle pin -> change appearance to represent pin or not
-            cell.togglePin()
+//            cell.togglePin()
+            saveAndRefetch()
         }
     }
     
@@ -176,7 +188,7 @@ extension DailyNoteViewController {
 
 // MARK: Core Data Methods
 extension DailyNoteViewController {
-    func fetchDailyNoteCollection() {
+    private func fetchDailyNoteCollection() {
         do {
             let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
             
@@ -205,7 +217,7 @@ extension DailyNoteViewController {
         }
     }
     
-    func fetchDailyNotes(_ collection: NSSet?) {
+    private func fetchDailyNotes(_ collection: NSSet?) {
         guard let notes = collection as? Set<DailyNote> else { return }
         if !notes.isEmpty {
             let sortedNotes = notes.sorted { $0.date! > $1.date! }
@@ -213,7 +225,7 @@ extension DailyNoteViewController {
         }
     }
     
-    func createDailyNoteCollection() -> DailyNoteCollection {
+    private func createDailyNoteCollection() -> DailyNoteCollection {
         // TODO: if yesterday's pinnedNotes exists -> store in today's pinnedNotes and notes -> ?delete yesterday's?
         guard let pinnedNotes = checkPinnedNotes() else { return DailyNoteCollection(context: context, date: Date()) }
         
@@ -225,7 +237,7 @@ extension DailyNoteViewController {
         return yesterdayCollection
     }
     
-    func checkPinnedNotes() -> NSSet? {
+    private func checkPinnedNotes() -> NSSet? {
         do {
             // fetch yesterday's DailyNoteCollection if it exists
             let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
@@ -275,7 +287,7 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = .clear
 //        cell.selectionStyle = .none
 
-        cell.configure(with: dailyNotes[indexPath.section].note!)
+        cell.configure(with: dailyNotes[indexPath.section].note!, pinned: dailyNotes[indexPath.section].pinned)
         cell.delegate = self
         
         return cell
