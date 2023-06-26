@@ -123,26 +123,14 @@ extension DailyNoteViewController {
     // DailyNoteTextFieldViewDelegate method to handle adding note
     internal func addNoteButtonTapped(withNote note: String) {
         createNewNote(note)
-        
-        // save data
-        do { try self.context.save() }
-        catch { print(error) }
-        
-        // re-fetch data
-        fetchDailyNoteCollection()
+        saveAndRefetch()
     }
     
     // DailyNoteTextFieldViewDelegate method to handle editing note
     internal func editNoteButtonTapped(withNote note: String) {
         guard dailyNotes[noteIndex].note != note else { return }
         dailyNotes[noteIndex].note = note
-        
-        // save data
-        do { try self.context.save() }
-        catch { print(error) }
-        
-        // re-fetch data
-        fetchDailyNoteCollection()
+        saveAndRefetch()
     }
     
     internal func editModeCancelled() {
@@ -160,15 +148,9 @@ extension DailyNoteViewController {
             let noteToDelete = dailyNotes[noteIndex]
             dailyNoteCollection?.removeFromNotes(noteToDelete)
             self.context.delete(noteToDelete)
-            
             dailyNotes.remove(at: noteIndex)
             
-            // save the data
-            do { try self.context.save() }
-            catch { print(error) }
-            
-            // re-fetch data
-            fetchDailyNoteCollection()
+            saveAndRefetch()
         } else if option == "Edit" {
             view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
             dailyNoteTextBar.editNote(note: note)
@@ -180,8 +162,8 @@ extension DailyNoteViewController {
         }
     }
     
+    // Handles hiding keyboard if user taps on superview
     private func registerHideKeyboard() {
-        // Handles hiding keyboard if user taps on superview
         let handleKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(handleKeyboard)
     }
@@ -208,7 +190,6 @@ extension DailyNoteViewController {
                 fetchDailyNotes(self.dailyNoteCollection?.notes)
             } else {
                 // if today's DailyNoteCollection doesn't exist/empty -> create new DailyNoteCollection
-                // TODO: FIX BUG WHEN ADDING FIRST NOTE TO NEW COLLECTION - TRACE FROM HERE AND ADDNEWNOTEBUTTON
                 let newCollection = createDailyNoteCollection()
                 self.dailyNoteCollection = newCollection
                 
@@ -219,7 +200,6 @@ extension DailyNoteViewController {
             DispatchQueue.main.async {
                 self.dailyNoteTableView.reloadData()
             }
-            
         } catch {
             print("Failed to fetch: \(error)")
         }
@@ -230,52 +210,49 @@ extension DailyNoteViewController {
         if !notes.isEmpty {
             let sortedNotes = notes.sorted { $0.date! > $1.date! }
             self.dailyNotes = sortedNotes
-        } else {
-            // TODO: instantiate dailyNotes for empty dailyNotesCollection?
         }
     }
     
     func createDailyNoteCollection() -> DailyNoteCollection {
-        let newCollection = DailyNoteCollection(context: context, date: Date())
-        
         // TODO: if yesterday's pinnedNotes exists -> store in today's pinnedNotes and notes -> ?delete yesterday's?
-        guard let pinnedNotes = checkPinnedNotes() else { return newCollection }
-        newCollection.pinnedNotes = pinnedNotes
-        newCollection.notes = pinnedNotes
+        guard let pinnedNotes = checkPinnedNotes() else { return DailyNoteCollection(context: context, date: Date()) }
         
-        fetchDailyNotes(newCollection.notes)
+        let yesterdayCollection = DailyNoteCollection(context: context, date: Date())
+        yesterdayCollection.pinnedNotes = pinnedNotes
+        yesterdayCollection.notes = pinnedNotes
+        fetchDailyNotes(yesterdayCollection.notes)
         
-        return newCollection
-        // TODO: if no pinned notes -> instantiate dailyNotes for empty dailyNotesCollection?
+        return yesterdayCollection
     }
     
     func checkPinnedNotes() -> NSSet? {
         do {
-            let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
-
             // fetch yesterday's DailyNoteCollection if it exists
+            let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
             let pred = NSPredicate(format: "date >= %@ && date <= %@", startOfYesterday as CVarArg, startOfToday as CVarArg)
             request.predicate = pred
 
+            // yesterday's DailyNoteCollection exists -> check if there are pinned notes
             if let fetchedCollections = try context.fetch(request).first {
-                // yesterday's DailyNoteCollection exists -> check if there are pinned notes
                 guard let pinnedNotes = fetchedCollections.pinnedNotes else { return nil }
-                
-                // if no pinned notes -> return
                 if pinnedNotes.count < 1 { return nil }
                 
-                //if pinned notes exist -> store in newCollection.pinnedNotes and newCollection.notes
                 return pinnedNotes
-                // fetchNotes()?
-                
-            } else {
-                // yesterday's DailyNoteCollection doesn't exist -> no pinned notes; do nothing
             }
         } catch {
             print("Failed to fetch: \(error)")
         }
         
         return nil
+    }
+    
+    private func saveAndRefetch() {
+        // save the data
+        do { try self.context.save() }
+        catch { print(error) }
+        
+        // re-fetch data
+        fetchDailyNoteCollection()
     }
 }
 
