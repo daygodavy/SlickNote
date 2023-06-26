@@ -135,24 +135,16 @@ extension DailyNoteTableViewCell {
 // MARK: Methods
 extension DailyNoteTableViewCell {
     
-    public func configure(with label: String, pinned: Bool) {
+    public func configure(with label: String, pinned: Bool, checked: Bool) {
+        self.dailyLabel.attributedText = nil
+        self.dailyLabel.text = nil
         self.dailyLabel.text = label
-        
-        if pinned {
-            dailyCell.layer.borderColor = UIColor.systemYellow.cgColor
-        } else {
-            dailyCell.layer.borderColor = UIColor.white.cgColor
-        }
+        togglePin(pin: pinned)
+        toggleStrikeOut(check: checked)
     }
     
     @objc private func checkboxTapped(_ sender: UIButton) {
-        if dailyCheckbox.isSelected == false {
-            dailyCheckbox.isSelected = true
-            // TODO: add strikethrough to dailyLabel
-        } else {
-            dailyCheckbox.isSelected = false
-            // TODO: remove strikethrough from dailyLabel
-        }
+        handleOption(option: "Checked")
     }
     
     @objc private func optionsTapped(_ sender: UIButton) {
@@ -163,6 +155,27 @@ extension DailyNoteTableViewCell {
         let config = UIEditMenuConfiguration(identifier: nil, sourcePoint: location)
         
         optionsMenuInteraction.presentEditMenu(with: config)
+    }
+    
+    private func togglePin(pin: Bool) {
+        if pin {
+            dailyCell.layer.borderColor = UIColor.systemYellow.cgColor
+        } else {
+            dailyCell.layer.borderColor = UIColor.white.cgColor
+        }
+    }
+    
+    private func toggleStrikeOut(check: Bool) {
+        guard let note = self.dailyLabel.text else { return }
+        let attributedText = NSMutableAttributedString(string: note)
+        if check {
+            dailyCheckbox.isSelected = true
+            attributedText.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributedText.length))
+        } else {
+            dailyCheckbox.isSelected = false
+            attributedText.removeAttribute(NSAttributedString.Key.strikethroughStyle, range: NSMakeRange(0, attributedText.length))
+        }
+        self.dailyLabel.attributedText = attributedText
     }
     
     private func handleOption(option: String) {

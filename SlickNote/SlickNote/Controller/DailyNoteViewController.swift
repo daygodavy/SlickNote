@@ -9,6 +9,7 @@ import CoreData
 import UIKit
 
 class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate, DailyNoteTableViewCellDelegate {
+    
     // MARK: - UI Components
     private let dailyNoteTableView = UITableView()
     private lazy var shadeView = UIView(frame: view.bounds)
@@ -121,6 +122,8 @@ extension DailyNoteViewController {
             handleEdit(note: note)
         } else if option == "Pin" {
             handlePin(noteToPin: dailyNotes[noteIndex])
+        } else if option == "Checked" {
+            handleCheckBox(noteToCheckBox: dailyNotes[noteIndex])
         }
     }
     
@@ -136,6 +139,7 @@ extension DailyNoteViewController {
         dailyNotes[noteIndex].note = note
         
         // TODO: If note is pinned; do I need to update for dailyNoteCollection.pinnedNote also?
+        
         saveAndRefetch()
     }
     
@@ -173,6 +177,17 @@ extension DailyNoteViewController {
             noteToPin.pinned = true
             dailyNoteCollection?.addToPinnedNotes(noteToPin)
         }
+        saveAndRefetch()
+    }
+    
+    private func handleCheckBox(noteToCheckBox: DailyNote) {
+        if noteToCheckBox.checked {
+            noteToCheckBox.checked = false
+        } else {
+            noteToCheckBox.checked = true
+        }
+        // TODO: If note is pinned; do I need to update for dailyNoteCollection.pinnedNote also?
+        
         saveAndRefetch()
     }
     
@@ -285,11 +300,13 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyNoteTableViewCell.identifier, for: indexPath) as? DailyNoteTableViewCell else {
             fatalError("The TableView could not dequeue a DailyNoteTableViewCell in ViewController.")
         }
+        let currentNote = dailyNotes[indexPath.section]
+        
 //        cell.contentView.backgroundColor = .systemBrown
         cell.backgroundColor = .clear
 //        cell.selectionStyle = .none
 
-        cell.configure(with: dailyNotes[indexPath.section].note!, pinned: dailyNotes[indexPath.section].pinned)
+        cell.configure(with: currentNote.note!, pinned: currentNote.pinned, checked: currentNote.checked)
         cell.delegate = self
         
         return cell
