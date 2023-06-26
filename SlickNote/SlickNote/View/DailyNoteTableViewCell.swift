@@ -134,12 +134,6 @@ extension DailyNoteTableViewCell {
 
 // MARK: Methods
 extension DailyNoteTableViewCell {
-//    public func configure(with label: String) {
-//        self.dailyLabel.text = label
-//
-//        // FIXME: temp bug fix for when deleting pinned cell; new cell pinned -> REFACTOR USING CORE DATA ATTRIBUTE PINNED
-//        dailyCell.layer.borderColor = UIColor.white.cgColor
-//    }
     
     public func configure(with label: String, pinned: Bool) {
         self.dailyLabel.text = label
@@ -150,14 +144,6 @@ extension DailyNoteTableViewCell {
             dailyCell.layer.borderColor = UIColor.white.cgColor
         }
     }
-    
-//    public func togglePin() {
-//        if dailyCell.layer.borderColor == UIColor.white.cgColor {
-//            dailyCell.layer.borderColor = UIColor.systemYellow.cgColor
-//        } else {
-//            dailyCell.layer.borderColor = UIColor.white.cgColor
-//        }
-//    }
     
     @objc private func checkboxTapped(_ sender: UIButton) {
         if dailyCheckbox.isSelected == false {

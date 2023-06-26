@@ -110,14 +110,18 @@ extension DailyNoteViewController {
 
 // MARK: Methods
 extension DailyNoteViewController {
-    private func createNewNote(_ note: String) {
-        let dailyNote = DailyNote(context: context)
-        dailyNote.note = note
-        dailyNote.date = Date()
-        dailyNote.pinned = false
-        dailyNote.checked = false
-//        dailyNote.index =
-        dailyNoteCollection?.addToNotes(dailyNote)
+    // DailyNoteTableViewCellDelegate method to handle edit/delete note
+    internal func handleOption(option: String, cell: DailyNoteTableViewCell, note: String) {
+        guard let indexPath = self.dailyNoteTableView.indexPath(for: cell) else { return }
+        noteIndex = indexPath.section
+        
+        if option == "Delete" {
+            handleDelete(noteToDelete: dailyNotes[noteIndex])
+        } else if option == "Edit" {
+            handleEdit(note: note)
+        } else if option == "Pin" {
+            handlePin(noteToPin: dailyNotes[noteIndex])
+        }
     }
     
     // DailyNoteTextFieldViewDelegate method to handle adding note
@@ -130,6 +134,8 @@ extension DailyNoteViewController {
     internal func editNoteButtonTapped(withNote note: String) {
         guard dailyNotes[noteIndex].note != note else { return }
         dailyNotes[noteIndex].note = note
+        
+        // TODO: If note is pinned; do I need to update for dailyNoteCollection.pinnedNote also?
         saveAndRefetch()
     }
     
@@ -137,41 +143,37 @@ extension DailyNoteViewController {
         shadeView.removeFromSuperview()
     }
     
-    // DailyNoteTableViewCellDelegate method to handle edit/delete note
-    internal func handleOption(option: String, cell: DailyNoteTableViewCell, note: String) {
-        guard let indexPath = self.dailyNoteTableView.indexPath(for: cell) else { return }
-        let section = indexPath.section
-        noteIndex = section
-        
-        if option == "Delete" {
-            // remove note
-            let noteToDelete = dailyNotes[noteIndex]
-            if noteToDelete.pinned { dailyNoteCollection?.removeFromPinnedNotes(noteToDelete) }
-            dailyNoteCollection?.removeFromNotes(noteToDelete)
-            self.context.delete(noteToDelete)
-            dailyNotes.remove(at: noteIndex)
-            saveAndRefetch()
-        } else if option == "Edit" {
-            view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
-            dailyNoteTextBar.editNote(note: note)
-        } else if option == "Pin" {
-            // TODO: update model
-            if dailyNotes[noteIndex].pinned {
-                // if true -> unpin
-                dailyNotes[noteIndex].pinned = false
-                // remove from dailyNoteCollection.pinnedNotes
-                dailyNoteCollection?.removeFromPinnedNotes(dailyNotes[noteIndex])
-            } else {
-                // false -> pin
-                dailyNotes[noteIndex].pinned = true
-                // add to dailyNoteCollection.pinnedNotes
-                dailyNoteCollection?.addToPinnedNotes(dailyNotes[noteIndex])
-            }
-            // handle when adding persistence of data (pin daily)
-            // toggle pin -> change appearance to represent pin or not
-//            cell.togglePin()
-            saveAndRefetch()
+    private func createNewNote(_ note: String) {
+        let dailyNote = DailyNote(context: context)
+        dailyNote.note = note
+        dailyNote.date = Date()
+        dailyNote.pinned = false
+        dailyNote.checked = false
+        dailyNoteCollection?.addToNotes(dailyNote)
+    }
+    
+    private func handleDelete(noteToDelete: DailyNote) {
+        if noteToDelete.pinned { dailyNoteCollection?.removeFromPinnedNotes(noteToDelete) }
+        dailyNoteCollection?.removeFromNotes(noteToDelete)
+        self.context.delete(noteToDelete)
+        dailyNotes.remove(at: noteIndex)
+        saveAndRefetch()
+    }
+    
+    private func handleEdit(note: String) {
+        view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
+        dailyNoteTextBar.editNote(note: note)
+    }
+    
+    private func handlePin(noteToPin: DailyNote) {
+        if noteToPin.pinned {
+            noteToPin.pinned = false
+            dailyNoteCollection?.removeFromPinnedNotes(noteToPin)
+        } else {
+            noteToPin.pinned = true
+            dailyNoteCollection?.addToPinnedNotes(noteToPin)
         }
+        saveAndRefetch()
     }
     
     // Handles hiding keyboard if user taps on superview
