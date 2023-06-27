@@ -16,17 +16,16 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
     private var dailyNoteTextBar: DailyNoteTextFieldView!
     
     // MARK: - Variables
-//    private var dailyNotes = [String]()
     private var noteIndex: Int!
-    
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     // MARK: Core Data Temp Variables
-//    private var dailyNoteCollection = [DailyNoteCollection]()
     private var dailyNoteCollection: DailyNoteCollection?
     private var dailyNotes = [DailyNote]()
     private var startOfToday: Date!
     private var startOfYesterday: Date!
+    
+    private var collectionDates: [Date] = []
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -41,6 +40,7 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
         startOfToday = Calendar.current.startOfDay(for: Date())
         startOfYesterday = Calendar.current.date(byAdding: .day, value: -1, to: startOfToday)!
         fetchDailyNoteCollection()
+        fetchAllCollectionDates()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -61,8 +61,11 @@ extension DailyNoteViewController {
     private func styleView() {
         self.view.backgroundColor = UIColor(red: 246/255, green: 214/255, blue: 211/255, alpha: 1.0)
         title = "Slick Note"
-        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.backgroundColor = .clear
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonTapped))
     }
     
     private func styleDailyNoteTableView() {
@@ -200,6 +203,7 @@ extension DailyNoteViewController {
     @objc private func hideKeyboard() {
         view.endEditing(true)
     }
+    
 }
 
 
@@ -265,7 +269,6 @@ extension DailyNoteViewController {
             if let fetchedCollections = try context.fetch(request).first {
                 guard let pinnedNotes = fetchedCollections.pinnedNotes else { return nil }
                 if pinnedNotes.count < 1 { return nil }
-                
                 return pinnedNotes
             }
         } catch {
@@ -282,6 +285,27 @@ extension DailyNoteViewController {
         
         // re-fetch data
         fetchDailyNoteCollection()
+    }
+}
+
+// MARK: DataSelectorDelegate
+extension DailyNoteViewController: DateSelectorDelegate {
+    @objc private func calendarButtonTapped() {
+        let dateSelectorVC = DateSelectorViewController()
+        dateSelectorVC.delegate = self
+        dateSelectorVC.collectionDates = collectionDates
+        navigationController?.pushViewController(dateSelectorVC, animated: true)
+    }
+    
+    private func fetchAllCollectionDates() {
+        do {
+            let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
+            let fetchedCollections = try context.fetch(request)
+
+            collectionDates = fetchedCollections.compactMap { $0.date }
+        } catch {
+            print(error)
+        }
     }
 }
 
