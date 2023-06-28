@@ -17,7 +17,7 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
     
     // MARK: - Variables
     private var noteIndex: Int!
-    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context = PersistanceContainer.shared.container.viewContext
 
     // MARK: Core Data Temp Variables
     private var dailyNoteCollection: DailyNoteCollection?

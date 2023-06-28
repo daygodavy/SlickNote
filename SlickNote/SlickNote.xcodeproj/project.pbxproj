@@ -25,6 +25,7 @@
 		5BAF35C42A4A782600135509 /* DateSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF35C32A4A782600135509 /* DateSelectorViewController.swift */; };
 		5BAF35C62A4B842100135509 /* DailyNoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF35C52A4B842100135509 /* DailyNoteView.swift */; };
 		5BED9A6D2A4CC7D000359F76 /* DailyNoteView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A6C2A4CC7D000359F76 /* DailyNoteView+Extension.swift */; };
+		5BED9A702A4CFC8A00359F76 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A6F2A4CFC8A00359F76 /* PersistanceContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		5BAF35C32A4A782600135509 /* DateSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorViewController.swift; sourceTree = "<group>"; };
 		5BAF35C52A4B842100135509 /* DailyNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteView.swift; sourceTree = "<group>"; };
 		5BED9A6C2A4CC7D000359F76 /* DailyNoteView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyNoteView+Extension.swift"; sourceTree = "<group>"; };
+		5BED9A6F2A4CFC8A00359F76 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				5B5E5DC12A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift */,
 				5B5E5DC22A46202B00881219 /* DailyNote+CoreDataClass.swift */,
 				5B5E5DC32A46202B00881219 /* DailyNote+CoreDataProperties.swift */,
+				5BED9A6F2A4CFC8A00359F76 /* PersistanceContainer.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				5BAF35C62A4B842100135509 /* DailyNoteView.swift in Sources */,
 				5BAF35C42A4A782600135509 /* DateSelectorViewController.swift in Sources */,
 				5B5E5DAB2A3D0F4400881219 /* DailyNoteViewController.swift in Sources */,
+				5BED9A702A4CFC8A00359F76 /* PersistanceContainer.swift in Sources */,
 				5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */,
 				5BED9A6D2A4CC7D000359F76 /* DailyNoteView+Extension.swift in Sources */,
 				5B5E5DC52A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift in Sources */,
