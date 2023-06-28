@@ -13,12 +13,22 @@ class DateSelectorViewController: UIViewController, UICalendarViewDelegate {
     var collectionDates: [Date] = []
     var formattedDates: [String] = []
     let dateFormatter = DateFormatter()
+    var selectedDate: Date?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         calendarView.delegate = self
         setupUI()
         setupValidDates()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            print("MOVING FROM PARENT")
+            checkSelectedDate()
+        }
     }
 
 }
@@ -91,10 +101,12 @@ extension DateSelectorViewController {
 }
 
 
-// MARK: Delegate methods
+// MARK: UICalendarSelectionSingleDateDelegate
 extension DateSelectorViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        print("Selected Date: \(dateComponents)")
+        print("Selected Date: \(dateComponents?.date)")
+        selectedDate = dateComponents?.date
+        
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, canSelectDate dateComponents: DateComponents?) -> Bool {
@@ -102,8 +114,17 @@ extension DateSelectorViewController: UICalendarSelectionSingleDateDelegate {
     }
 }
 
-// MARK: Core Data methods
+// MARK: DateSelectorDelegate Methods
+extension DateSelectorViewController {
+    func checkSelectedDate() {
+        guard let date = selectedDate else { return }
+//        guard collectionDates.contains(date) else { return }
+        delegate?.fetchSelectedDailyNoteCollection(date)
+        
+    }
+}
 
+// MARK: Protocol
 protocol DateSelectorDelegate: AnyObject {
-    
+    func fetchSelectedDailyNoteCollection(_ selectedDate: Date)
 }

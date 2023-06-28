@@ -250,6 +250,31 @@ extension DailyNoteViewController: DateSelectorDelegate {
             print(error)
         }
     }
+    
+    internal func fetchSelectedDailyNoteCollection(_ selectedDate: Date) {
+        let start = Calendar.current.startOfDay(for: selectedDate)
+        guard let end = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: start) else { return }
+
+        do {
+            let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
+
+            // fetch today's DailyNoteCollection if it exists
+            let pred = NSPredicate(format: "date >= %@ && date <= %@", start as CVarArg, end as CVarArg)
+            request.predicate = pred
+
+            if let fetchedCollections = try context.fetch(request).first {
+                // DailyNoteCollection exists
+                self.dailyNoteCollection = fetchedCollections
+                fetchDailyNotes(self.dailyNoteCollection?.notes)
+            }
+
+            DispatchQueue.main.async {
+                self.dailyNoteTableView.reloadData()
+            }
+        } catch {
+            print("Failed to fetch: \(error)")
+        }
+    }
 }
 
 
