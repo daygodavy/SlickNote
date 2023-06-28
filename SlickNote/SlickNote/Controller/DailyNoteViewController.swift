@@ -27,6 +27,9 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
     
     private var collectionDates: [Date] = []
     
+    // MARK: Core Data Manager
+    private var cdManager: CoreDataManager!
+    
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
