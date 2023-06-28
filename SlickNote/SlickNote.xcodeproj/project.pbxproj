@@ -60,10 +60,10 @@
 		5B5E5D992A3BC18100881219 /* SlickNoteUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlickNoteUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5B5E5DA92A3CF18300881219 /* DailyNoteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteTableViewCell.swift; sourceTree = "<group>"; };
 		5B5E5DAC2A40FDB900881219 /* DailyNoteTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteTextFieldView.swift; sourceTree = "<group>"; };
-		5B5E5DC02A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNoteCollection+CoreDataClass.swift"; path = "SlickNote/Model/DailyNoteCollection+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		5B5E5DC12A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNoteCollection+CoreDataProperties.swift"; path = "SlickNote/Model/DailyNoteCollection+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		5B5E5DC22A46202B00881219 /* DailyNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNote+CoreDataClass.swift"; path = "SlickNote/Model/DailyNote+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		5B5E5DC32A46202B00881219 /* DailyNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNote+CoreDataProperties.swift"; path = "SlickNote/Model/DailyNote+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		5B5E5DC02A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNoteCollection+CoreDataClass.swift"; path = "SlickNote/Data/DailyNoteCollection+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5B5E5DC12A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNoteCollection+CoreDataProperties.swift"; path = "SlickNote/Data/DailyNoteCollection+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		5B5E5DC22A46202B00881219 /* DailyNote+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNote+CoreDataClass.swift"; path = "SlickNote/Data/DailyNote+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		5B5E5DC32A46202B00881219 /* DailyNote+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DailyNote+CoreDataProperties.swift"; path = "SlickNote/Data/DailyNote+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		5BAF35C32A4A782600135509 /* DateSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorViewController.swift; sourceTree = "<group>"; };
 		5BAF35C52A4B842100135509 /* DailyNoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteView.swift; sourceTree = "<group>"; };
 		5BED9A6C2A4CC7D000359F76 /* DailyNoteView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyNoteView+Extension.swift"; sourceTree = "<group>"; };
@@ -117,6 +117,7 @@
 		5B5E5D722A3BC17F00881219 /* SlickNote */ = {
 			isa = PBXGroup;
 			children = (
+				5BED9A6E2A4CF8A700359F76 /* Data */,
 				5B5E5DA62A3BC6A700881219 /* Model */,
 				5B5E5DA72A3BC6C200881219 /* View */,
 				5B5E5DA82A3BC6C800881219 /* Controller */,
@@ -150,10 +151,6 @@
 		5B5E5DA62A3BC6A700881219 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5B5E5DC02A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift */,
-				5B5E5DC12A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift */,
-				5B5E5DC22A46202B00881219 /* DailyNote+CoreDataClass.swift */,
-				5B5E5DC32A46202B00881219 /* DailyNote+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -176,6 +173,17 @@
 				5BAF35C32A4A782600135509 /* DateSelectorViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		5BED9A6E2A4CF8A700359F76 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				5B5E5DC02A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift */,
+				5B5E5DC12A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift */,
+				5B5E5DC22A46202B00881219 /* DailyNote+CoreDataClass.swift */,
+				5B5E5DC32A46202B00881219 /* DailyNote+CoreDataProperties.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
