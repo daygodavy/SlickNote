@@ -11,9 +11,9 @@ import UIKit
 class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate, DailyNoteTableViewCellDelegate {
     
     // MARK: - UI Components
-    let dailyNoteTableView = UITableView()
-    lazy var shadeView = UIView(frame: view.bounds)
-    var dailyNoteTextBar: DailyNoteTextFieldView!
+//    let dailyNoteTableView = UITableView()
+//    lazy var shadeView = UIView(frame: view.bounds)
+//    var dailyNoteTextBar: DailyNoteTextFieldView!
     
     // MARK: - Variables
     private var noteIndex: Int!
@@ -27,14 +27,22 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
     
     private var collectionDates: [Date] = []
     
+    // MARK: DAILYNOTEVIEW SEPARATION
+    var rootView: DailyNoteView {
+        view as! DailyNoteView
+    }
+    
+    
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
+//        setupUI()
+        view = DailyNoteView()
+        setupNavBar()
         registerHideKeyboard()
-        dailyNoteTableView.dataSource = self
-        dailyNoteTableView.delegate = self
-        dailyNoteTextBar.delegate = self
+        rootView.dailyNoteTableView.dataSource = self
+        rootView.dailyNoteTableView.delegate = self
+        rootView.dailyNoteTextBar.delegate = self
         
         // Core Data: fetch notes
         startOfToday = Calendar.current.startOfDay(for: Date())
@@ -53,13 +61,25 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
 }
 
 
+// MARK: Navigation Bar Setup
+extension DailyNoteViewController {
+    private func setupNavBar() {
+                title = "Slick Note"
+                navigationController?.navigationBar.prefersLargeTitles = true
+                navigationItem.largeTitleDisplayMode = .never
+                navigationController?.navigationBar.backgroundColor = .clear
+        
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonTapped))
+    }
+}
+
 
 
 // MARK: Methods
 extension DailyNoteViewController {
     // DailyNoteTableViewCellDelegate method to handle edit/delete note
     internal func handleOption(option: String, cell: DailyNoteTableViewCell, note: String) {
-        guard let indexPath = self.dailyNoteTableView.indexPath(for: cell) else { return }
+        guard let indexPath = rootView.dailyNoteTableView.indexPath(for: cell) else { return }
         noteIndex = indexPath.section
         
         if option == "Delete" {
@@ -90,7 +110,7 @@ extension DailyNoteViewController {
     }
     
     internal func editModeCancelled() {
-        shadeView.removeFromSuperview()
+        rootView.shadeView.removeFromSuperview()
     }
     
     private func createNewNote(_ note: String) {
@@ -111,8 +131,8 @@ extension DailyNoteViewController {
     }
     
     private func handleEdit(note: String) {
-        view.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
-        dailyNoteTextBar.editNote(note: note)
+        view.insertSubview(rootView.shadeView, belowSubview: rootView.dailyNoteTextBar)
+        rootView.dailyNoteTextBar.editNote(note: note)
     }
     
     private func handlePin(noteToPin: DailyNote) {
@@ -174,7 +194,7 @@ extension DailyNoteViewController {
             }
             
             DispatchQueue.main.async {
-                self.dailyNoteTableView.reloadData()
+                self.rootView.dailyNoteTableView.reloadData()
             }
         } catch {
             print("Failed to fetch: \(error)")
@@ -269,7 +289,7 @@ extension DailyNoteViewController: DateSelectorDelegate {
             }
 
             DispatchQueue.main.async {
-                self.dailyNoteTableView.reloadData()
+                self.rootView.dailyNoteTableView.reloadData()
             }
         } catch {
             print("Failed to fetch: \(error)")
