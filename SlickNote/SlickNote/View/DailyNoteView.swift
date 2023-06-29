@@ -22,6 +22,15 @@ class DailyNoteView: UIView {
         super.init(coder: coder)
         setupUI()
     }
+    
+    func showShadeView() {
+        self.insertSubview(shadeView, belowSubview: dailyNoteTextBar)
+        layoutShadeView()
+    }
+    
+    func hideShadeView() {
+        shadeView.removeFromSuperview()
+    }
 }
 
 // MARK: UI Styling + Layout
@@ -49,6 +58,7 @@ extension DailyNoteView {
     
     private func styleShadeView() {
         shadeView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        shadeView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func styleDailyNoteTextBar() {
@@ -77,6 +87,15 @@ extension DailyNoteView {
             dailyNoteTextBar.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             dailyNoteTextBar.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
             dailyNoteTextBar.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    private func layoutShadeView() {
+        NSLayoutConstraint.activate([
+            shadeView.topAnchor.constraint(equalTo: self.topAnchor),
+            shadeView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            shadeView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            shadeView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
 
