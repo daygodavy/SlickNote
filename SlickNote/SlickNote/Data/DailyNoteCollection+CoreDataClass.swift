@@ -11,7 +11,7 @@ import CoreData
 
 @objc(DailyNoteCollection)
 public class DailyNoteCollection: NSManagedObject {
-    convenience init(context: NSManagedObjectContext, date: Date) {
+    convenience init(context: NSManagedObjectContext, date: Date, pinnedNotes: NSSet?=nil, notes: NSSet?=nil) {
         let entity = NSEntityDescription.entity(forEntityName: "DailyNoteCollection", in: context)!
         self.init(entity: entity, insertInto: context)
         self.date = date

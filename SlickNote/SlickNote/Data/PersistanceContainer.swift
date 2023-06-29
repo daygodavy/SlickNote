@@ -10,12 +10,12 @@ import Foundation
 
 class PersistanceContainer {
     let container: NSPersistentContainer
-    let backgroundContext: NSManagedObjectContext
+//    let backgroundContext: NSManagedObjectContext
     static let shared = PersistanceContainer()
     
     init() {
         self.container = NSPersistentContainer(name: "SlickNote")
-        self.backgroundContext = container.newBackgroundContext()
+//        self.backgroundContext = container.newBackgroundContext()
         
         container.loadPersistentStores { (description, error) in
             if let error = error as NSError? {

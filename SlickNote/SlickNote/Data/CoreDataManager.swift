@@ -29,7 +29,7 @@ class CoreDataManager {
         return fetched
     }
     
-    func add<M: NSManagedObject>(_ type: M.Type) -> M? {
-        return nil
-    }
+//    func add<M: NSManagedObject>(_ type: M.Type) -> M? {
+//        return nil
+//    }
 }

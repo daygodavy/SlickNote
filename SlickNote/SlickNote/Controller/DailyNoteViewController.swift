@@ -116,7 +116,6 @@ extension DailyNoteViewController {
     }
     
     private func createNewNote(_ note: String) {
-//        let dailyNote = DailyNote(context: context)
         let dailyNote = DailyNote(context: context, date: Date(), note: note, pinned: false, checked: false)
         dailyNoteCollection?.addToNotes(dailyNote)
     }
@@ -194,7 +193,7 @@ extension DailyNoteViewController {
     
     private func fetchDailyNotes(_ collection: NSSet?) {
         guard let notes = collection as? Set<DailyNote> else { return }
-        if !notes.isEmpty {
+        if !notes.isEmpty && notes.count > 1 {
             let sortedNotes = notes.sorted { $0.date! > $1.date! }
             self.dailyNotes = sortedNotes
         }
@@ -204,43 +203,58 @@ extension DailyNoteViewController {
         // TODO: if yesterday's pinnedNotes exists -> store in today's pinnedNotes and notes -> ?delete yesterday's?
         guard let pinnedNotes = checkPinnedNotes() else { return DailyNoteCollection(context: context, date: Date()) }
         
-        let yesterdayCollection = DailyNoteCollection(context: context, date: Date())
-        yesterdayCollection.pinnedNotes = pinnedNotes
-        yesterdayCollection.notes = pinnedNotes
+        let yesterdayCollection = DailyNoteCollection(context: context, date: Date(), pinnedNotes: pinnedNotes, notes: pinnedNotes)
         fetchDailyNotes(yesterdayCollection.notes)
         
         return yesterdayCollection
     }
     
     private func checkPinnedNotes() -> NSSet? {
-        do {
-            // fetch yesterday's DailyNoteCollection if it exists
-            let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
-            let pred = NSPredicate(format: "date >= %@ && date <= %@", startOfYesterday as CVarArg, startOfToday as CVarArg)
-            request.predicate = pred
-
+        let pred = NSPredicate(format: "date >= %@ && date <= %@", startOfYesterday as CVarArg, startOfToday as CVarArg)
+        
+        // fetch yesterday's DailyNoteCollection if it exists
+        if let fetchedCollection = cdManager.fetch(DailyNoteCollection.self, predicate: pred)?.first {
             // yesterday's DailyNoteCollection exists -> check if there are pinned notes
-            if let fetchedCollections = try context.fetch(request).first {
-                guard let pinnedNotes = fetchedCollections.pinnedNotes else { return nil }
-                if pinnedNotes.count < 1 { return nil }
-                return pinnedNotes
-            }
-        } catch {
-            print("Failed to fetch: \(error)")
+            guard let pinnedNotes = fetchedCollection.pinnedNotes else { return nil }
+            if pinnedNotes.count < 1 { return nil }
+            return pinnedNotes
         }
         
         return nil
     }
     
     private func saveAndRefetch() {
-        // save the data
-        do { try self.context.save() }
-        catch { print(error) }
+        PersistanceContainer.shared.saveContext()
         
         // re-fetch data
         fetchDailyNoteCollection()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // MARK: DataSelectorDelegate
 extension DailyNoteViewController: DateSelectorDelegate {
