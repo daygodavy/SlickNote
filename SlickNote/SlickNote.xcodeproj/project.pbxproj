@@ -28,6 +28,7 @@
 		5BED9A702A4CFC8A00359F76 /* PersistanceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A6F2A4CFC8A00359F76 /* PersistanceContainer.swift */; };
 		5BED9A722A4D025100359F76 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A712A4D025100359F76 /* CoreDataManager.swift */; };
 		5BED9A742A4E0B1F00359F76 /* DailyNoteCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A732A4E0B1F00359F76 /* DailyNoteCollectionManager.swift */; };
+		5BED9A792A4E33A500359F76 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A782A4E33A500359F76 /* Keyboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		5BED9A6F2A4CFC8A00359F76 /* PersistanceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceContainer.swift; sourceTree = "<group>"; };
 		5BED9A712A4D025100359F76 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		5BED9A732A4E0B1F00359F76 /* DailyNoteCollectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteCollectionManager.swift; sourceTree = "<group>"; };
+		5BED9A782A4E33A500359F76 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 		5B5E5D722A3BC17F00881219 /* SlickNote */ = {
 			isa = PBXGroup;
 			children = (
+				5BED9A772A4E337800359F76 /* Utility */,
 				5BED9A6E2A4CF8A700359F76 /* Data */,
 				5B5E5DA62A3BC6A700881219 /* Model */,
 				5B5E5DA72A3BC6C200881219 /* View */,
@@ -193,6 +196,14 @@
 				5BED9A732A4E0B1F00359F76 /* DailyNoteCollectionManager.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		5BED9A772A4E337800359F76 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				5BED9A782A4E33A500359F76 /* Keyboard.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +349,7 @@
 				5B5E5DC42A46202B00881219 /* DailyNoteCollection+CoreDataClass.swift in Sources */,
 				5B5E5D7E2A3BC17F00881219 /* SlickNote.xcdatamodeld in Sources */,
 				5B5E5D762A3BC17F00881219 /* SceneDelegate.swift in Sources */,
+				5BED9A792A4E33A500359F76 /* Keyboard.swift in Sources */,
 				5B5E5DC72A46202B00881219 /* DailyNote+CoreDataProperties.swift in Sources */,
 				5B5E5DAD2A40FDB900881219 /* DailyNoteTextFieldView.swift in Sources */,
 				5B5E5DAA2A3CF18300881219 /* DailyNoteTableViewCell.swift in Sources */,

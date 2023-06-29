@@ -30,7 +30,8 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
         super.viewDidLoad()
         view = DailyNoteView()
         setupNavBar()
-        registerHideKeyboard()
+        KeyboardHandler.registerHideKeyboard(for: view)
+        
         rootView.dailyNoteTableView.dataSource = self
         rootView.dailyNoteTableView.delegate = self
         rootView.dailyNoteTextBar.delegate = self
@@ -110,16 +111,6 @@ extension DailyNoteViewController {
     
     internal func editModeCancelled() {
         rootView.hideShadeView()
-    }
-    
-    // Handles hiding keyboard if user taps on superview
-    private func registerHideKeyboard() {
-        let handleKeyboard = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(handleKeyboard)
-    }
-    
-    @objc private func hideKeyboard() {
-        view.endEditing(true)
     }
     
 }
@@ -203,7 +194,7 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
         
 //        cell.contentView.backgroundColor = .systemBrown
         cell.backgroundColor = .clear
-//        cell.selectionStyle = .none
+        cell.selectionStyle = .none
 
         cell.configure(with: currentNote.note!, pinned: currentNote.pinned, checked: currentNote.checked)
         cell.delegate = self
