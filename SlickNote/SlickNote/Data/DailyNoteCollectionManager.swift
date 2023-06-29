@@ -16,20 +16,14 @@ class DailyNoteCollectionManager {
     private let context = PersistanceContainer.shared.container.viewContext
     private let cdManager = CoreDataManager()
     
-    private var startOfToday: Date!
-    private var startOfYesterday: Date!
-    
     private var dailyNoteCollection: DailyNoteCollection?
     public var dailyNotes: [DailyNote]?
-    
     public var collectionDates: [Date] = []
     
     weak var delegate: DailyNCManagerDelegate?
     
     init(dailyNoteCollection: DailyNoteCollection? = nil, dailyNotes: [DailyNote]? = nil) {
         self.dailyNoteCollection = dailyNoteCollection
-        startOfToday = Calendar.current.startOfDay(for: Date())
-        startOfYesterday = Calendar.current.date(byAdding: .day, value: -1, to: startOfToday)!
     }
 }
 
@@ -37,7 +31,7 @@ class DailyNoteCollectionManager {
 extension DailyNoteCollectionManager {
     
     func fetchDailyNoteCollection() {
-        let pred = NSPredicate(format: "date >= %@", startOfToday as CVarArg)
+        let pred = NSPredicate(format: "date >= %@", DateUtil.startOfToday as CVarArg)
         
         if let fetchedCollections = cdManager.fetch(DailyNoteCollection.self, predicate: pred)?.first {
             dailyNoteCollection = fetchedCollections
@@ -63,7 +57,7 @@ extension DailyNoteCollectionManager {
     }
     
     func checkPinnedNotes() -> NSSet? {
-        let pred = NSPredicate(format: "date >= %@ && date <= %@", startOfYesterday as CVarArg, startOfToday as CVarArg)
+        let pred = NSPredicate(format: "date >= %@ && date <= %@", DateUtil.startOfYesterday as CVarArg, DateUtil.startOfToday as CVarArg)
         
         if let fetchedCollection = cdManager.fetch(DailyNoteCollection.self, predicate: pred)?.first {
             
@@ -144,8 +138,8 @@ extension DailyNoteCollectionManager {
     }
     
     func fetchSelectedDailyNoteCollection(_ selectedDate: Date) {
-        let start = Calendar.current.startOfDay(for: selectedDate)
-        guard let end = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: start) else { return }
+        let start = DateUtil.startOfDate(selectedDate)
+        let end = DateUtil.endOfDate(start)
         let pred = NSPredicate(format: "date >= %@ && date <= %@", start as CVarArg, end as CVarArg)
         
         if let selectedCollection = cdManager.fetch(DailyNoteCollection.self, predicate: pred)?.first {
@@ -153,11 +147,8 @@ extension DailyNoteCollectionManager {
             fetchDailyNotes(self.dailyNoteCollection?.notes)
             
         }
-        
         delegate?.refreshUI()
     }
-    
-    
 }
 
 

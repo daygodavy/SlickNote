@@ -29,6 +29,7 @@
 		5BED9A722A4D025100359F76 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A712A4D025100359F76 /* CoreDataManager.swift */; };
 		5BED9A742A4E0B1F00359F76 /* DailyNoteCollectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A732A4E0B1F00359F76 /* DailyNoteCollectionManager.swift */; };
 		5BED9A792A4E33A500359F76 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A782A4E33A500359F76 /* Keyboard.swift */; };
+		5BED9A7B2A4E3F8300359F76 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED9A7A2A4E3F8300359F76 /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		5BED9A712A4D025100359F76 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		5BED9A732A4E0B1F00359F76 /* DailyNoteCollectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNoteCollectionManager.swift; sourceTree = "<group>"; };
 		5BED9A782A4E33A500359F76 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
+		5BED9A7A2A4E3F8300359F76 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				5BED9A782A4E33A500359F76 /* Keyboard.swift */,
+				5BED9A7A2A4E3F8300359F76 /* Date.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				5BED9A702A4CFC8A00359F76 /* PersistanceContainer.swift in Sources */,
 				5B5E5D742A3BC17F00881219 /* AppDelegate.swift in Sources */,
 				5BED9A742A4E0B1F00359F76 /* DailyNoteCollectionManager.swift in Sources */,
+				5BED9A7B2A4E3F8300359F76 /* Date.swift in Sources */,
 				5BED9A6D2A4CC7D000359F76 /* DailyNoteView+Extension.swift in Sources */,
 				5B5E5DC52A46202B00881219 /* DailyNoteCollection+CoreDataProperties.swift in Sources */,
 				5B5E5DC62A46202B00881219 /* DailyNote+CoreDataClass.swift in Sources */,
