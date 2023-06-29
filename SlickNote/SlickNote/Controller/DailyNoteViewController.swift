@@ -11,19 +11,12 @@ import UIKit
 class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate, DailyNoteTableViewCellDelegate, DailyNCManagerDelegate {
 
     // MARK: - Variables
+    private let dailyNCManager = DailyNoteCollectionManager()
     private var noteIndex: Int!
-    private let context = PersistanceContainer.shared.container.viewContext
-
-    // MARK: Core Data Temp Variables
-    private var collectionDates: [Date] = []
     
-    // MARK: DAILYNOTEVIEW SEPARATION
     var rootView: DailyNoteView {
         view as! DailyNoteView
     }
-    
-    // MARK: DAILYNOTECOLLECTION MANAGER
-    let dailyNCManager = DailyNoteCollectionManager()
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -37,12 +30,9 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
         rootView.dailyNoteTextBar.delegate = self
         dailyNCManager.delegate = self
         
-        
         // Core Data: fetch notes
         dailyNCManager.fetchDailyNoteCollection()
-        
-        // FIXME: UNCOMMENT FOR DATESELECTOR
-//        fetchAllCollectionDates()
+        dailyNCManager.fetchAllCollectionDates()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,8 +59,7 @@ extension DailyNoteViewController {
                 navigationItem.largeTitleDisplayMode = .never
                 navigationController?.navigationBar.backgroundColor = .clear
         
-        // FIXME: UNCOMMENT FOR DATESELECTOR
-//                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonTapped))
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarButtonTapped))
     }
 }
 
@@ -117,59 +106,19 @@ extension DailyNoteViewController {
 
 
 
-
-
-
-
-
-
-
-
 // MARK: DataSelectorDelegate
-//extension DailyNoteViewController: DateSelectorDelegate {
-//    @objc func calendarButtonTapped() {
-//        let dateSelectorVC = DateSelectorViewController()
-//        dateSelectorVC.delegate = self
-//        dateSelectorVC.collectionDates = collectionDates
-//        navigationController?.pushViewController(dateSelectorVC, animated: true)
-//    }
-//
-//    private func fetchAllCollectionDates() {
-//        do {
-//            let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
-//            let fetchedCollections = try context.fetch(request)
-//
-//            collectionDates = fetchedCollections.compactMap { $0.date }
-//        } catch {
-//            print(error)
-//        }
-//    }
-//
-//    internal func fetchSelectedDailyNoteCollection(_ selectedDate: Date) {
-//        let start = Calendar.current.startOfDay(for: selectedDate)
-//        guard let end = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: start) else { return }
-//
-//        do {
-//            let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
-//
-//            // fetch today's DailyNoteCollection if it exists
-//            let pred = NSPredicate(format: "date >= %@ && date <= %@", start as CVarArg, end as CVarArg)
-//            request.predicate = pred
-//
-//            if let fetchedCollections = try context.fetch(request).first {
-//                // DailyNoteCollection exists
-//                self.dailyNoteCollection = fetchedCollections
-//                fetchDailyNotes(self.dailyNoteCollection?.notes)
-//            }
-//
-//            DispatchQueue.main.async {
-//                self.rootView.dailyNoteTableView.reloadData()
-//            }
-//        } catch {
-//            print("Failed to fetch: \(error)")
-//        }
-//    }
-//}
+extension DailyNoteViewController: DateSelectorDelegate {
+    @objc func calendarButtonTapped() {
+        let dateSelectorVC = DateSelectorViewController()
+        dateSelectorVC.delegate = self
+        dateSelectorVC.collectionDates = dailyNCManager.collectionDates
+        navigationController?.pushViewController(dateSelectorVC, animated: true)
+    }
+    
+    internal func fetchSelectedDailyNoteCollection(_ selectedDate: Date) {
+        dailyNCManager.fetchSelectedDailyNoteCollection(selectedDate)
+    }
+}
 
 
 // MARK: UITableViewDelegate + UITableViewDataSource
@@ -188,9 +137,6 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         guard let currentNote = dailyNCManager.dailyNotes?[indexPath.section] else { return UITableViewCell() }
-
-        
-        
         
 //        cell.contentView.backgroundColor = .systemBrown
         cell.backgroundColor = .clear

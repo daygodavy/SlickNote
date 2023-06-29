@@ -22,6 +22,8 @@ class DailyNoteCollectionManager {
     private var dailyNoteCollection: DailyNoteCollection?
     public var dailyNotes: [DailyNote]?
     
+    public var collectionDates: [Date] = []
+    
     weak var delegate: DailyNCManagerDelegate?
     
     init(dailyNoteCollection: DailyNoteCollection? = nil, dailyNotes: [DailyNote]? = nil) {
@@ -131,6 +133,31 @@ extension DailyNoteCollectionManager {
         
         saveAndRefetch()
     }
+}
+
+// MARK: DateSelector Management
+extension DailyNoteCollectionManager {
+    func fetchAllCollectionDates() {
+        guard let allCollections = cdManager.fetch(DailyNoteCollection.self) else { return }
+        
+        collectionDates = allCollections.compactMap { $0.date }
+    }
+    
+    func fetchSelectedDailyNoteCollection(_ selectedDate: Date) {
+        let start = Calendar.current.startOfDay(for: selectedDate)
+        guard let end = Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: start) else { return }
+        let pred = NSPredicate(format: "date >= %@ && date <= %@", start as CVarArg, end as CVarArg)
+        
+        if let selectedCollection = cdManager.fetch(DailyNoteCollection.self, predicate: pred)?.first {
+            self.dailyNoteCollection = selectedCollection
+            fetchDailyNotes(self.dailyNoteCollection?.notes)
+            
+        }
+        
+        delegate?.refreshUI()
+    }
+    
+    
 }
 
 

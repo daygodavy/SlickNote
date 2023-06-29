@@ -26,7 +26,6 @@ class DateSelectorViewController: UIViewController, UICalendarViewDelegate {
         super.viewWillDisappear(animated)
         
         if isMovingFromParent {
-            print("MOVING FROM PARENT")
             checkSelectedDate()
         }
     }
