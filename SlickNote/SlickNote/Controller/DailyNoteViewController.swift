@@ -193,9 +193,11 @@ extension DailyNoteViewController {
     
     private func fetchDailyNotes(_ collection: NSSet?) {
         guard let notes = collection as? Set<DailyNote> else { return }
-        if !notes.isEmpty && notes.count > 1 {
+        if !notes.isEmpty {
             let sortedNotes = notes.sorted { $0.date! > $1.date! }
             self.dailyNotes = sortedNotes
+        } else {
+            self.dailyNotes = []
         }
     }
     
