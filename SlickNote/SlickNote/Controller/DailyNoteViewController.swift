@@ -32,6 +32,8 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
         view as! DailyNoteView
     }
     
+    // MARK: CORE DATA SEPARATION
+    let cdManager = CoreDataManager()
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -114,11 +116,8 @@ extension DailyNoteViewController {
     }
     
     private func createNewNote(_ note: String) {
-        let dailyNote = DailyNote(context: context)
-        dailyNote.note = note
-        dailyNote.date = Date()
-        dailyNote.pinned = false
-        dailyNote.checked = false
+//        let dailyNote = DailyNote(context: context)
+        let dailyNote = DailyNote(context: context, date: Date(), note: note, pinned: false, checked: false)
         dailyNoteCollection?.addToNotes(dailyNote)
     }
     
@@ -173,33 +172,25 @@ extension DailyNoteViewController {
 // MARK: Core Data Methods
 extension DailyNoteViewController {
     private func fetchDailyNoteCollection() {
-        do {
-            let request = DailyNoteCollection.fetchRequest() as NSFetchRequest<DailyNoteCollection>
+        let pred = NSPredicate(format: "date >= %@", startOfToday as CVarArg)
+        
+        if let fetchedCollections = cdManager.fetch(DailyNoteCollection.self, predicate: pred)?.first {
+            // DailyNoteCollection exists
+            self.dailyNoteCollection = fetchedCollections
+            fetchDailyNotes(self.dailyNoteCollection?.notes)
+        } else {
+            // if today's DailyNoteCollection doesn't exist/empty -> create new DailyNoteCollection
+            let newCollection = createDailyNoteCollection()
+            self.dailyNoteCollection = newCollection
             
-            // fetch today's DailyNoteCollection if it exists
-            let pred = NSPredicate(format: "date >= %@", startOfToday as CVarArg)
-            request.predicate = pred
-            
-            if let fetchedCollections = try context.fetch(request).first {
-                // DailyNoteCollection exists
-                self.dailyNoteCollection = fetchedCollections
-                fetchDailyNotes(self.dailyNoteCollection?.notes)
-            } else {
-                // if today's DailyNoteCollection doesn't exist/empty -> create new DailyNoteCollection
-                let newCollection = createDailyNoteCollection()
-                self.dailyNoteCollection = newCollection
-                
-                do { try self.context.save() }
-                catch { print(error) }
-            }
-            
-            DispatchQueue.main.async {
-                self.rootView.dailyNoteTableView.reloadData()
-            }
-        } catch {
-            print("Failed to fetch: \(error)")
+            PersistanceContainer.shared.saveContext()
+        }
+        
+        DispatchQueue.main.async {
+            self.rootView.dailyNoteTableView.reloadData()
         }
     }
+
     
     private func fetchDailyNotes(_ collection: NSSet?) {
         guard let notes = collection as? Set<DailyNote> else { return }
