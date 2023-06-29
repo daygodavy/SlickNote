@@ -14,9 +14,7 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
     private let dailyNCManager = DailyNoteCollectionManager()
     private var noteIndex: Int!
     
-    var rootView: DailyNoteView {
-        view as! DailyNoteView
-    }
+    var rootView: DailyNoteView { view as! DailyNoteView }
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -30,29 +28,15 @@ class DailyNoteViewController: UIViewController, DailyNoteTextFieldViewDelegate,
         rootView.dailyNoteTextBar.delegate = self
         dailyNCManager.delegate = self
         
-        // Core Data: fetch notes
         dailyNCManager.fetchDailyNoteCollection()
         dailyNCManager.fetchAllCollectionDates()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    func refreshUI() {
-        DispatchQueue.main.async {
-            self.rootView.dailyNoteTableView.reloadData()
-        }
     }
 }
 
 
 // MARK: Navigation Bar Setup
 extension DailyNoteViewController {
+    
     private func setupNavBar() {
                 title = "Slick Note"
                 navigationController?.navigationBar.prefersLargeTitles = true
@@ -64,10 +48,9 @@ extension DailyNoteViewController {
 }
 
 
-
 // MARK: Methods
 extension DailyNoteViewController {
-    // DailyNoteTableViewCellDelegate method to handle edit/delete note
+    
     internal func handleOption(option: String, cell: DailyNoteTableViewCell, note: String) {
         
         guard let indexPath = rootView.dailyNoteTableView.indexPath(for: cell) else { return }
@@ -93,7 +76,6 @@ extension DailyNoteViewController {
         dailyNCManager.createNewNote(note)
     }
 
-    // DailyNoteTextFieldViewDelegate method to handle editing note
     internal func editNoteButtonTapped(withNote note: String) {
         dailyNCManager.updateNote(newNote: note, noteIndex: noteIndex)
     }
@@ -102,8 +84,12 @@ extension DailyNoteViewController {
         rootView.hideShadeView()
     }
     
+    func refreshUI() {
+        DispatchQueue.main.async {
+            self.rootView.dailyNoteTableView.reloadData()
+        }
+    }
 }
-
 
 
 // MARK: DataSelectorDelegate
@@ -135,13 +121,10 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DailyNoteTableViewCell.identifier, for: indexPath) as? DailyNoteTableViewCell else {
             fatalError("The TableView could not dequeue a DailyNoteTableViewCell in ViewController.")
         }
-        
         guard let currentNote = dailyNCManager.dailyNotes?[indexPath.section] else { return UITableViewCell() }
         
-//        cell.contentView.backgroundColor = .systemBrown
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
-
         cell.configure(with: currentNote.note!, pinned: currentNote.pinned, checked: currentNote.checked)
         cell.delegate = self
         
@@ -153,8 +136,7 @@ extension DailyNoteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footer = UIView()
-        return footer
+        return UIView()
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

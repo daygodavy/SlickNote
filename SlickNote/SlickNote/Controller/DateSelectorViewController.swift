@@ -103,9 +103,7 @@ extension DateSelectorViewController {
 // MARK: UICalendarSelectionSingleDateDelegate
 extension DateSelectorViewController: UICalendarSelectionSingleDateDelegate {
     func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
-        print("Selected Date: \(dateComponents?.date)")
         selectedDate = dateComponents?.date
-        
     }
     
     func dateSelection(_ selection: UICalendarSelectionSingleDate, canSelectDate dateComponents: DateComponents?) -> Bool {
