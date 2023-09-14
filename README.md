@@ -1,1 +1,2 @@
 # SlickNote
+![SNDemo_1](https://github.com/daygodavy/SlickNote/assets/35315835/70c630b5-3ba3-4a5e-8d66-8d072b8ea45b) ![SNDemo_2](https://github.com/daygodavy/SlickNote/assets/35315835/d31c3160-5059-462e-a254-b7705de65bcf) ![SNDemo_3](https://github.com/daygodavy/SlickNote/assets/35315835/3348f922-2955-4a08-8747-fa7d162778cb) ![SNDemo_4](https://github.com/daygodavy/SlickNote/assets/35315835/9caed9a5-9f5c-46f7-b517-2eb48d66c03c) ![SNDemo_5](https://github.com/daygodavy/SlickNote/assets/35315835/4a14ba8b-92e1-4221-a05d-bbe24bdebb9f)
